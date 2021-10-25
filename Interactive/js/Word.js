@@ -15,6 +15,8 @@ class Word {
     this.posX = x;
     this.posY = y;
 
+    this.width = textWidth(chars);
+
     this.FONT_SIZE = 18;
     this.fontSize = this.FONT_SIZE;
     this.UNDERLINE_WEIGHT = 3;
@@ -30,13 +32,16 @@ class Word {
 
   display(bgColor, textColor) {
     push();
-    translate(this.posX * MAX_NOTE_SIZE / CHAR_WIDTH, this.posY * MAX_NOTE_SIZE / CHAR_HEIGHT);
+    translate(this.posX, this.posY);
     rectMode(CORNER);
 
     if (this.button != null) {
       this.button.display();
     }
-    
+
+    fill(200);
+    rect(this.posX, this.posY, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT);
+
     //underline
     if (this.underline) {
       fill(this.underlineColor);
@@ -46,9 +51,10 @@ class Word {
     //this.distToMouse();
 
     fill(255, 255, 255, this.opacity);
-    textAlign(CENTER, CENTER);
+    textAlign(LEFT, CENTER);
     textSize(this.fontSize);
-    text(this.char, MAX_NOTE_SIZE / CHAR_WIDTH / 2, MAX_NOTE_SIZE / CHAR_HEIGHT / 2);
+    this.width = textWidth(this.chars + " ");
+    text(this.chars, MAX_NOTE_SIZE / CHAR_WIDTH / 2, MAX_NOTE_SIZE / CHAR_HEIGHT / 2);
     pop();
   }
 }

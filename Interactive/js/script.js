@@ -62,8 +62,11 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  charGrid = new CharGrid("#111111", COLOR_WHITE);
-  charGrid.addLine("This is a #button.");
+  textSize(18);
+  textFont("Courier");
+
+  charGrid = new Paper("#111111", COLOR_WHITE);
+  charGrid.addWord("Hello");
 
   noCursor();
 }
