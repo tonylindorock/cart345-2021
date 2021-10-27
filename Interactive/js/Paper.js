@@ -25,21 +25,27 @@ class Paper {
     // separate new line
     let noReturn = characters.split('\n');
 
+    console.log(noReturn);
+
     for (let i = 0; i < noReturn.length; i++){
-      if (i > 0 && noReturn[i] != "" && noReturn[i-1] != ""){
-        this.addWordToPaper("");
-        this.nextLine();
-      }
-
+      // add a new line if the previous is not a new line
       this.addWordToPaper(noReturn[i]);
-
-      if (noReturn[i] === ""){
+      if (i + 1 <= noReturn.length - 1){
+        this.addWordToPaper("");
         this.nextLine();
       }
     }
   }
 
+  hasSpace(width){
+    let x = textWidth(this.lines[this.pointerPosY]);
+    return (MAX_NOTE_SIZE - x > width);
+  }
+
   addWordToPaper(word){
+    if (!this.hasSpace(textWidth(word))){
+      this.nextLine();
+    }
     let x = textWidth(this.lines[this.pointerPosY]);
     let newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
     this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
@@ -52,6 +58,8 @@ class Paper {
     this.pointerPosX = 0;
     this.lines.push("");
     this.words.push([]);
+
+    console.log("Ran");
   }
 
   addLine(line){
