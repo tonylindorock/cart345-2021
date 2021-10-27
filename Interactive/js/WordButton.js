@@ -33,14 +33,18 @@ class WordButton extends Word {
         this.mouseClicked = false;
       }
 
+      if (this.isHovered){
+        enlargeCursor = true;
+        wordButtonIsHovered(this, this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width);
+      }
+
     } else {
       this.isHovered = false;
-    }
 
-    if (this.isHovered){
-      enlargeCursor = true;
-    }else{
-      enlargeCursor = false;
+      if (hoveringButton === this){
+        enlargeCursor = false;
+        hoveringButton = null;
+      }
     }
   }
 

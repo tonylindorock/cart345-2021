@@ -56,13 +56,25 @@ const DEFAULT_CURSOR_SIZE = 16;
 const LARGER_CURSOR_SIZE = 24;
 let cursorSize = DEFAULT_CURSOR_SIZE;
 let enlargeCursor = false;
+let cursorHoverSize = {
+  w: 0,
+  h: 0,
+  targetWidth: 0
+};
+let cursorOffset = {
+  x: 0,
+  y: 0,
+  targetX: 0,
+  targetY: 0
+}
+let hoveringButton;
 
 let STORY;
 
 var charGrid;
 
 function preload() {
-  loadStory();
+  //loadStory();
 }
 
 function setup() {
@@ -71,9 +83,9 @@ function setup() {
   textSize(18);
   textFont("Courier");
 
-  charGrid = new Paper("#111111", COLOR_WHITE);
+  charGrid = new Paper("#111", COLOR_WHITE);
 
-  charGrid.addLine(STORY.passages[0].text);
+  charGrid.addLine("It is dark.\n\nI can barely tell the #window.\n\nI see #something growing in the dark.\n\nThe #button is not working.");
 
   noCursor();
 }
@@ -97,25 +109,46 @@ function checkForMouseOver(x, y, w, h) {
     mouseY >= y - h / 2 && mouseY <= y + h / 2);
 }
 
+// display a custom circular cursor
+// automatically widen to the word's width when hovering on a clickable word
 function showCursor() {
   push();
-  translate(mouseX, mouseY);
+  cursorOffset.x = lerp(cursorOffset.x, cursorOffset.targetX, 0.2);
+  cursorOffset.y = lerp(cursorOffset.y, cursorOffset.targetY, 0.2);
+  translate(mouseX + cursorOffset.x, mouseY + cursorOffset.y);
+  rectMode(CENTER);
   noStroke();
-
-  if (enlargeCursor) {
-    cursorSize = lerp(cursorSize, LARGER_CURSOR_SIZE, 0.4);
-  } else {
-    cursorSize = lerp(cursorSize, DEFAULT_CURSOR_SIZE, 0.4);
-  }
   if (mouseIsPressed) {
     fill(255, 255, 255, 150);
   } else {
-    fill(255, 255, 255, 100);
+    fill(255, 255, 255, 80);
   }
-  ellipse(0, 0, cursorSize);
+
+  if (enlargeCursor) {
+    cursorSize = lerp(cursorSize, LARGER_CURSOR_SIZE, 0.2);
+    cursorHoverSize.w = lerp(cursorHoverSize.w, cursorHoverSize.targetWidth, 0.3);
+    cursorHoverSize.h = lerp(cursorHoverSize.h, MAX_NOTE_SIZE / CHAR_HEIGHT, 0.3);
+    rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
+  } else {
+    cursorSize = lerp(cursorSize, DEFAULT_CURSOR_SIZE, 0.2);
+    cursorHoverSize.w = lerp(cursorHoverSize.w, 0, 0.3);
+    cursorHoverSize.h = lerp(cursorHoverSize.h, 0, 0.3);
+    cursorOffset.x = 0;
+    cursorOffset.y = 0;
+    cursorHoverSize.targetWidth = 0;
+    rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
+    ellipse(0, 0, cursorSize);
+  }
   pop();
 }
 
-function loadStory(){
+function wordButtonIsHovered(ref, x, y, width) {
+  hoveringButton = ref;
+  cursorOffset.targetX = (x - mouseX);
+  cursorOffset.targetY = (y - mouseY);
+  cursorHoverSize.targetWidth = width
+}
+
+function loadStory() {
   STORY = loadJSON("data/story.json");
 }
