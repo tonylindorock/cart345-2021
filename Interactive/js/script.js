@@ -57,10 +57,12 @@ const LARGER_CURSOR_SIZE = 24;
 let cursorSize = DEFAULT_CURSOR_SIZE;
 let enlargeCursor = false;
 
+let STORY;
+
 var charGrid;
 
 function preload() {
-
+  loadStory();
 }
 
 function setup() {
@@ -71,9 +73,7 @@ function setup() {
 
   charGrid = new Paper("#111111", COLOR_WHITE);
 
-  charGrid.addLine("This is a #button.");
-
-  charGrid.addLine("\nArthur ignores you, \"You will find a key to unlock the door to escape from this room. In the meantime, you will discover a character. A character which is a part of the password to open my safe in my office. If you can escape from the room, obtain the character, and successfully unlock my safe, you will have everything you desire from me--\"\n\n\"Dad... please--\"\n\n\"If you can't complete this puzzle successfully, everything inside of the safe will be destroyed. After that, you'll be escorted out of the mansion, and I will initiate self-destruct of the house. An explosion from my laboratory will destroy the entire house. There're too many things in this house that I can't trust anyone to have. If you can't finish my game, I can't trust you. You'll be in a safe zone when it happens, but--I wish it won't.\"\n\n\"... Dad, please... Stop!\"\n\n\"If you wish to quit the game, the answer is no. You all agreed to play the game, so you can't quit it.\" Arthur looks into your eyes, \"You have 2 hours. Good luck, Lucas.\" And he fades away.");
+  charGrid.addLine(STORY.passages[0].text);
 
   noCursor();
 }
@@ -97,19 +97,25 @@ function checkForMouseOver(x, y, w, h) {
     mouseY >= y - h / 2 && mouseY <= y + h / 2);
 }
 
-function showCursor(){
+function showCursor() {
   push();
+  translate(mouseX, mouseY);
   noStroke();
-  if (mouseIsPressed){
+
+  if (enlargeCursor) {
+    cursorSize = lerp(cursorSize, LARGER_CURSOR_SIZE, 0.4);
+  } else {
+    cursorSize = lerp(cursorSize, DEFAULT_CURSOR_SIZE, 0.4);
+  }
+  if (mouseIsPressed) {
     fill(255, 255, 255, 150);
-  }else{
+  } else {
     fill(255, 255, 255, 100);
   }
-  if (enlargeCursor){
-    cursorSize = lerp(cursorSize,LARGER_CURSOR_SIZE,0.4);
-  }else{
-    cursorSize = lerp(cursorSize,DEFAULT_CURSOR_SIZE,0.4);
-  }
-  ellipse(mouseX,mouseY, cursorSize);
+  ellipse(0, 0, cursorSize);
   pop();
+}
+
+function loadStory(){
+  STORY = loadJSON("data/story.json");
 }
