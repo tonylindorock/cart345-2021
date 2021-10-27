@@ -25,11 +25,10 @@ class Paper {
     // separate new line
     let noReturn = characters.split('\n');
 
-    console.log(noReturn);
-
     for (let i = 0; i < noReturn.length; i++){
-      // add a new line if the previous is not a new line
+      // add a new word
       this.addWordToPaper(noReturn[i]);
+      // run each time when there is a gap between element
       if (i + 1 <= noReturn.length - 1){
         this.addWordToPaper("");
         this.nextLine();
@@ -37,17 +36,22 @@ class Paper {
     }
   }
 
+  // check for space in a line
   hasSpace(width){
     let x = textWidth(this.lines[this.pointerPosY]);
     return (MAX_NOTE_SIZE - x > width);
   }
 
   addWordToPaper(word){
+    // if no space, add a new line
     if (!this.hasSpace(textWidth(word))){
       this.nextLine();
     }
+    // get the current width of text
     let x = textWidth(this.lines[this.pointerPosY]);
+    // create a Word object
     let newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+    // update
     this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
     this.words[this.pointerPosY].push(newWord);
   }
@@ -58,8 +62,6 @@ class Paper {
     this.pointerPosX = 0;
     this.lines.push("");
     this.words.push([]);
-
-    console.log("Ran");
   }
 
   addLine(line){

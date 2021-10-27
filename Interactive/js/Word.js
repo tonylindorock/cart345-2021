@@ -26,8 +26,12 @@ class Word {
 
     this.pressTime = 0;
 
-    this.globalX = windowWidth / 2 - MAX_NOTE_SIZE / 2 + this.posX * MAX_NOTE_SIZE / CHAR_WIDTH + (MAX_NOTE_SIZE / CHAR_WIDTH) / 2;
-    this.globalY = TOP_MENU_HEIGHT / 2 + this.posY * MAX_NOTE_SIZE / CHAR_HEIGHT + (MAX_NOTE_SIZE / CHAR_HEIGHT) / 2;
+    this.globalX = windowWidth / 2 - MAX_NOTE_SIZE / 2 + this.posX;
+    this.globalY = TOP_MENU_HEIGHT / 2 + this.posY;
+  }
+
+  distToMouse(){
+    this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY),FLASH_RADIUS, 32, 0 ,255);
   }
 
   display(bgColor, textColor) {
@@ -45,12 +49,12 @@ class Word {
       this.width = textWidth(this.chars);
     }
 
+    /**
     push();
     stroke(200);
     strokeWeight(1);
     rect(0, 0, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT);
-    pop();
-
+    pop();**/
 
     //underline
     if (this.underline) {
@@ -58,7 +62,7 @@ class Word {
       rect(0, MAX_NOTE_SIZE / CHAR_HEIGHT - this.UNDERLINE_WEIGHT / 2, MAX_NOTE_SIZE / CHAR_WIDTH, this.UNDERLINE_WEIGHT);
     }
 
-    //this.distToMouse();
+    this.distToMouse();
 
     fill(255, 255, 255, this.opacity);
     textAlign(LEFT, CENTER);
