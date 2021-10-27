@@ -22,14 +22,47 @@ class Paper {
 
   // add a word
   addWord(characters, nextWord = "") {
-    let newWord = new Word(0, 0, characters);
+    // separate new line
+    let noReturn = characters.split('\n');
 
-    this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + characters;
+    for (let i = 0; i < noReturn.length; i++){
+      if (i > 0 && noReturn[i] != "" && noReturn[i-1] != ""){
+        this.addWordToPaper("");
+        this.nextLine();
+      }
+
+      this.addWordToPaper(noReturn[i]);
+
+      if (noReturn[i] === ""){
+        this.nextLine();
+      }
+    }
+  }
+
+  addWordToPaper(word){
+    let x = textWidth(this.lines[this.pointerPosY]);
+    let newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+    this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
     this.words[this.pointerPosY].push(newWord);
   }
 
-  addLine(){
+  // go to the next line
+  nextLine(){
+    this.pointerPosY += 1;
+    this.pointerPosX = 0;
+    this.lines.push("");
+    this.words.push([]);
+  }
 
+  addLine(line){
+    let words = line.split(" ");
+    let nextWord = "";
+    for(let i = 0; i < words.length; i++){
+      if (i < words.length - 2){
+        nextWord = words[i + 1];
+      }
+      this.addWord(words[i] + " ", nextWord);
+    }
   }
 
   display() {

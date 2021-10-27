@@ -39,8 +39,18 @@ class Word {
       this.button.display();
     }
 
-    fill(200);
-    rect(this.posX, this.posY, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT);
+    if (this.chars === ""){
+      this.width = textWidth(" ");
+    }else{
+      this.width = textWidth(this.chars);
+    }
+
+    push();
+    stroke(200);
+    strokeWeight(1);
+    rect(0, 0, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT);
+    pop();
+
 
     //underline
     if (this.underline) {
@@ -52,8 +62,6 @@ class Word {
 
     fill(255, 255, 255, this.opacity);
     textAlign(LEFT, CENTER);
-    textSize(this.fontSize);
-    this.width = textWidth(this.chars + " ");
     text(this.chars, MAX_NOTE_SIZE / CHAR_WIDTH / 2, MAX_NOTE_SIZE / CHAR_HEIGHT / 2);
     pop();
   }
