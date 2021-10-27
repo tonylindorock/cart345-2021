@@ -58,11 +58,5 @@ class Button{
     }
   }
 
-  forget(){
-    clearTimeout(this.hoverTimeout);
-    this.hoverTimeout = null;
-    isShowingTooltip = false;
-  }
-
   display(){}
 }

@@ -5,9 +5,11 @@ class Word {
     this.underline = false;
     this.highlight = false;
 
+    this.rgb = [255, 255, 255];
+
     this.opacity = 255;
 
-    this.underlineColor = COLOR_BLACK;
+    this.underlineColor = COLOR_WHITE;
     this.highlightColor = HIGHLIGHT_COLORS[0];
 
     this.button = null;
@@ -19,36 +21,30 @@ class Word {
 
     this.FONT_SIZE = 18;
     this.fontSize = this.FONT_SIZE;
-    this.UNDERLINE_WEIGHT = 3;
+    this.UNDERLINE_WEIGHT = 2;
 
     this.underlineEnabled = false;
     this.highlightEnabled = false;
 
-    this.pressTime = 0;
-
-    this.globalX = windowWidth / 2 - MAX_NOTE_SIZE / 2 + this.posX;
-    this.globalY = TOP_MENU_HEIGHT / 2 + this.posY;
+    this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
+    this.globalY = this.posY + TOP_MENU_HEIGHT;
   }
 
   distToMouse(){
     this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY),FLASH_RADIUS, 32, 0 ,255);
   }
 
-  display(bgColor, textColor) {
+  display() {
+    this.distToMouse();
     push();
     translate(this.posX, this.posY);
     rectMode(CORNER);
-
-    if (this.button != null) {
-      this.button.display();
-    }
 
     if (this.chars === ""){
       this.width = textWidth(" ");
     }else{
       this.width = textWidth(this.chars);
     }
-
     /**
     push();
     stroke(200);
@@ -56,17 +52,25 @@ class Word {
     rect(0, 0, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT);
     pop();**/
 
-    //underline
-    if (this.underline) {
-      fill(this.underlineColor);
-      rect(0, MAX_NOTE_SIZE / CHAR_HEIGHT - this.UNDERLINE_WEIGHT / 2, MAX_NOTE_SIZE / CHAR_WIDTH, this.UNDERLINE_WEIGHT);
-    }
-
-    this.distToMouse();
-
-    fill(255, 255, 255, this.opacity);
+    fill(this.rgb[0], this.rgb[1], this.rgb[2], this.opacity);
     textAlign(LEFT, CENTER);
     text(this.chars, MAX_NOTE_SIZE / CHAR_WIDTH / 2, MAX_NOTE_SIZE / CHAR_HEIGHT / 2);
+
+    //underline
+    if (this.underline) {
+      push();
+      fill(this.rgb[0], this.rgb[1], this.rgb[2], this.opacity);
+      noStroke();
+      rect(0, MAX_NOTE_SIZE / CHAR_HEIGHT - this.UNDERLINE_WEIGHT, this.width, this.UNDERLINE_WEIGHT);
+      pop();
+    }
     pop();
+
+    /**
+    push();
+    noStroke();
+    fill(255);
+    ellipse(this.posX, this.posY, 4);
+    pop();**/
   }
 }

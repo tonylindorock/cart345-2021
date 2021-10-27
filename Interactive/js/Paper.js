@@ -50,7 +50,15 @@ class Paper {
     // get the current width of text
     let x = textWidth(this.lines[this.pointerPosY]);
     // create a Word object
-    let newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+
+    let newWord;
+    if (word.charAt(0) === '#'){
+      word = word.replace('#', '');
+      console.log("Add a button");
+      newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+    }else{
+      newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+    }
     // update
     this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
     this.words[this.pointerPosY].push(newWord);
@@ -90,12 +98,8 @@ class Paper {
     textFont(this.font);
     for (let i = 0; i < this.words.length; i++) {
       for (let j = 0; j < this.words[i].length; j++) {
-        this.words[i][j].display(this.bgColor, this.textColor);
+        this.words[i][j].display(255, 255, 255);
       }
-    }
-
-    for (let i = 0; i < this.buttons.length; i++){
-      this.buttons[i].display();
     }
 
     pop();

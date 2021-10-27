@@ -48,7 +48,6 @@ class ButtonText extends Button {
     rectMode(CENTER);
     noStroke();
     textAlign(CENTER, CENTER);
-    textSize(18);
     fill("#252525");
     rect(this.posX, this.posY, this.width, this.height);
     if (this.isHovered) {
