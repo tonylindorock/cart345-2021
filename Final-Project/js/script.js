@@ -51,6 +51,8 @@ const COLORS_NOTE_PLAYFUL = [COLOR_RED_PASTEL, COLOR_ORANGE_PASTEL, COLOR_YELLOW
 const COLORS_THEME = [COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_WHITE];
 const COLORS_NOTE_PLAIN = [COLOR_WHITE, COLOR_GREY_DARK];
 
+const LIGHT_RADIUS = 80;
+
 const FLASH_RADIUS = 160;
 const DEFAULT_CURSOR_SIZE = 16;
 const LARGER_CURSOR_SIZE = 24;
@@ -86,6 +88,7 @@ function setup() {
   charGrid = new Paper("#111", COLOR_WHITE);
 
   charGrid.addLine("It is dark.\n\nI can barely tell the #window.\n\nI see #something growing in the dark.\n\nThe #button is not working.");
+  charGrid.updateLightSource();
 
   noCursor();
 }

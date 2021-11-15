@@ -28,14 +28,29 @@ class Word {
 
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
     this.globalY = this.posY + TOP_MENU_HEIGHT;
+
+    this.isLightSource = false;
+    this.nearbyLight = [];
   }
 
   distToMouse(){
     this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY),FLASH_RADIUS, 32, 0 ,255);
   }
 
+  isNearLight(){
+    let o = 0;
+    for(let i = 0; i < this.nearbyLight.length; i++){
+      o += map(dist(this.globalX, this.globalY, this.nearbyLight[i].globalX, this.nearbyLight[i].globalY),FLASH_RADIUS, 32, 0 ,255);
+      o = constrain(o, 0, 255);
+      this.opacity = o;
+    }
+  }
+
   display() {
-    this.distToMouse();
+    if (!this.isLightSource){
+      this.distToMouse();
+    }
+
     push();
     translate(this.posX, this.posY);
     rectMode(CORNER);

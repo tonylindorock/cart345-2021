@@ -2,6 +2,8 @@ class WordButton extends Word {
   constructor(x, y, chars, disabled = false) {
     super(x, y, chars);
 
+    super.isLightSource = true;
+
     super.rgb = [255, 157, 38];
     super.underline = true;
 
@@ -11,6 +13,8 @@ class WordButton extends Word {
     this.disabled = disabled;
 
     this.func = null;
+
+    this.isDraggable = false;
   }
 
   checkForHouse() {

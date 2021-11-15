@@ -83,6 +83,25 @@ class Paper {
     }
   }
 
+  updateLightSource(){
+    // find the light source
+    for (let i = 0; i < this.words.length; i++) {
+      for (let j = 0; j < this.words[i].length; j++) {
+        if (this.words[i][j].isLightSource){
+          // find nearby words
+          for (let a = 0; a < this.words.length; a++) {
+            for (let b = 0; b < this.words[a].length; b++) {
+              let d = dist(this.words[i][j].globalX, this.words[i][j].globalY, this.words[a][b].globalX, this.words[a][b].globalY);
+              if (d <= LIGHT_RADIUS && d != 0){
+                this.words[a][b].nearbyLight.push(this.words[i][j]);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   display() {
     push();
     translate(windowWidth / 2 - this.MAX_SIZE / 2, TOP_MENU_HEIGHT);
@@ -98,10 +117,9 @@ class Paper {
     textFont(this.font);
     for (let i = 0; i < this.words.length; i++) {
       for (let j = 0; j < this.words[i].length; j++) {
-        this.words[i][j].display(255, 255, 255);
+        this.words[i][j].display();
       }
     }
-
     pop();
   }
 }
