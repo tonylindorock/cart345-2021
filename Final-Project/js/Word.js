@@ -27,7 +27,7 @@ class Word {
     this.highlightEnabled = false;
 
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
-    this.globalY = this.posY + TOP_MENU_HEIGHT;
+    this.globalY = this.posY + TOP_MARGIN;
 
     this.isLightSource = false;
     this.nearbyLight = [];

@@ -15,6 +15,7 @@ const MAX_NOTE_SIZE = 720;
 
 const MARGIN = 32;
 let TOP_MENU_HEIGHT = 32;
+const TOP_MARGIN = 128;
 
 const ADD_MENU_WIDTH = 320;
 const ADD_MENU_HEIGHT = 160;
@@ -87,7 +88,8 @@ function setup() {
 
   charGrid = new Paper("#111", COLOR_WHITE);
 
-  charGrid.addLine("It is dark.\n\nI can barely tell the #window.\n\nI see #something growing in the dark.\n\nThe #button is not working.");
+  charGrid.addLine("It is dark.\n\nI can barely tell where the #window is.\n\nI see #something growing in the dark.\n\nThe #button is not working.");
+  charGrid.addLine("\n\nAs everyone stops talking and the room suddenly goes quiet, you hear something from the AC. However, it does not sound like something from an AC.\n\nSerena smells the air and says, \"Fuck...\" Out of the blue, she drops her glass onto the carpet with a thud and she falls down on the ground.\n\n\"Serena!\" Evan rushes towards Serena, but he seems to lose his strength on his legs and falls onto the floor as well.\n\n\"Luke...\" Ali gradually lies on the ground while Tony tries to open the office door. He has no strength against the locked glass door and falls down after.\n\nYou feel a little bit tired--really tired. You are so tired that you want to just lie on the ground and fall asleep. You cannot fight it. A powerful force drags you to the ground along with Ali, Evan, Serena, and Tony.");
   charGrid.updateLightSource();
 
   noCursor();

@@ -104,14 +104,14 @@ class Paper {
 
   display() {
     push();
-    translate(windowWidth / 2 - this.MAX_SIZE / 2, TOP_MENU_HEIGHT);
+    translate(windowWidth / 2 - this.MAX_SIZE / 2, TOP_MARGIN);
     rectMode(CORNER);
     fill(this.bgColor);
     // padding
     stroke(this.bgColor);
     strokeWeight(32);
 
-    rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
+    //rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
     // display characters
     noStroke();
     textFont(this.font);
