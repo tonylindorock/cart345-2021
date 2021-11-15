@@ -24,6 +24,9 @@ class WordButton extends Word {
       }
 
       if (mouseIsPressed) {
+        if (clickedItem === null){
+          clickedItem = this;
+        }
         this.mouseClicked = true;
         // do once
         if (this.pressTime < 1) {
@@ -46,9 +49,9 @@ class WordButton extends Word {
     } else {
       this.isHovered = false;
 
-      if (hoveringButton === this){
+      if (hoveredItem === this){
         enlargeCursor = false;
-        hoveringButton = null;
+        hoveredItem = null;
       }
 
       if (!mouseIsPressed && clickedItem === this){

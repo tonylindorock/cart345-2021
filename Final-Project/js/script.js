@@ -170,7 +170,6 @@ function showCursor() {
   translate(mouseX + cursorOffset.x, mouseY + cursorOffset.y);
   rectMode(CENTER);
   ellipseMode(CENTER);
-  noStroke();
   if (mouseIsPressed) {
     fill(255, 255, 255, 150);
   } else {
@@ -181,6 +180,11 @@ function showCursor() {
     cursorSize = lerp(cursorSize, LARGER_CURSOR_SIZE, 0.2);
     cursorHoverSize.w = lerp(cursorHoverSize.w, cursorHoverSize.targetWidth, 0.3);
     cursorHoverSize.h = lerp(cursorHoverSize.h, MAX_NOTE_SIZE / CHAR_HEIGHT, 0.3);
+    if (clickedItem instanceof WordLinkable && clickedItem != hoveredItem){
+      noFill();
+      strokeWeight(4);
+      stroke(255, 255, 255, 150);
+    }
     rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
   } else {
     cursorSize = lerp(cursorSize, DEFAULT_CURSOR_SIZE, 0.2);
@@ -191,6 +195,7 @@ function showCursor() {
     cursorOffset.targetX = 0;
     cursorOffset.targetY = 0;
     cursorHoverSize.targetWidth = 0;
+    noStroke();
     rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
     ellipse(0, 0, cursorSize);
   }
