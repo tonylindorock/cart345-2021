@@ -14,6 +14,9 @@ class Word {
 
     this.button = null;
 
+    this.originX = x;
+    this.originY = y;
+
     this.posX = x;
     this.posY = y;
 
@@ -31,6 +34,13 @@ class Word {
 
     this.isLightSource = false;
     this.nearbyLight = [];
+
+    this.underlineWidth = this.width;
+  }
+
+  calculateGlobalPos(){
+    this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
+    this.globalY = this.posY + TOP_MARGIN;
   }
 
   distToMouse(){
@@ -48,7 +58,7 @@ class Word {
 
   display() {
     if (!this.isLightSource){
-      this.distToMouse();
+      //this.distToMouse();
     }
 
     push();
@@ -76,16 +86,16 @@ class Word {
       push();
       fill(this.rgb[0], this.rgb[1], this.rgb[2], this.opacity);
       noStroke();
-      rect(0, MAX_NOTE_SIZE / CHAR_HEIGHT - this.UNDERLINE_WEIGHT, this.width, this.UNDERLINE_WEIGHT);
+      rect(0, MAX_NOTE_SIZE / CHAR_HEIGHT - this.UNDERLINE_WEIGHT, this.underlineWidth, this.UNDERLINE_WEIGHT);
       pop();
     }
     pop();
 
-    /**
+    /*
     push();
     noStroke();
     fill(255);
     ellipse(this.posX, this.posY, 4);
-    pop();**/
+    pop();*/
   }
 }

@@ -13,14 +13,15 @@ class WordButton extends Word {
     this.disabled = disabled;
 
     this.func = null;
-
-    this.isDraggable = false;
   }
 
-  checkForHouse() {
+  checkForMouse() {
     if (checkForMouseOver(this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT) && !this.disabled) {
       //console.log("Hover");
       this.isHovered = true;
+      if (hoveredItem != this){
+        hoveredItem = this;
+      }
 
       if (mouseIsPressed) {
         this.mouseClicked = true;
@@ -49,11 +50,15 @@ class WordButton extends Word {
         enlargeCursor = false;
         hoveringButton = null;
       }
+
+      if (!mouseIsPressed && clickedItem === this){
+        clickedItem = null;
+      }
     }
   }
 
   display() {
-    this.checkForHouse();
+    this.checkForMouse();
     super.display();
   }
 }

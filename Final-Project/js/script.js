@@ -15,7 +15,7 @@ const MAX_NOTE_SIZE = 720;
 
 const MARGIN = 32;
 let TOP_MENU_HEIGHT = 32;
-const TOP_MARGIN = 128;
+const TOP_MARGIN = 96;
 
 const ADD_MENU_WIDTH = 320;
 const ADD_MENU_HEIGHT = 160;
@@ -25,14 +25,14 @@ const UNI_BTNC_HEIGHT = 192;
 
 const INFO_SQUARE_SIZE = 160;
 
-const ALL_CHAR = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$%^&*()_+,.<>?:;[]{}\'\"\|/\\";
+const ALL_CHAR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
 // **************** COLORS ****************
 const COLOR_BLACK = "#000000";
 const COLOR_GREY_DARK = "#484848";
 const COLOR_GREY = "#aaa";
 const COLOR_GREY_LIGHT = "#ccc";
-const COLOR_WHITE = "#111";
+const COLOR_WHITE = "#eee";
 const COLOR_RED = "#ff6464";
 const COLOR_RED_PASTEL = "#fea3aa";
 const COLOR_ORANGE = "#ffaf4b";
@@ -46,17 +46,22 @@ const COLOR_BLUE_PASTEL = "#a6c0ed";
 const COLOR_PURPLE = "#c073ff";
 const COLOR_PURPLE_PASTEL = "#eba0e1";
 
-const PEN_COLORS = [COLOR_BLACK, COLOR_RED, COLOR_BLUE];
 const HIGHLIGHT_COLORS = ["#ffff0080", "#ff800080", "#00ff0080", "#0080ff80", "#ff00ff80"];
-const COLORS_NOTE_PLAYFUL = [COLOR_RED_PASTEL, COLOR_ORANGE_PASTEL, COLOR_YELLOW_PASTEL, COLOR_GREEN_PASTEL, COLOR_BLUE_PASTEL, COLOR_PURPLE_PASTEL, COLOR_WHITE, COLOR_GREY];
-const COLORS_THEME = [COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_WHITE];
-const COLORS_NOTE_PLAIN = [COLOR_WHITE, COLOR_GREY_DARK];
 
 const LIGHT_RADIUS = 80;
 
 const FLASH_RADIUS = 160;
 const DEFAULT_CURSOR_SIZE = 16;
 const LARGER_CURSOR_SIZE = 24;
+
+let selectedItem = {
+  type: "",
+  id: -1
+};
+
+let clickedItem = null;
+let hoveredItem = null;
+
 let cursorSize = DEFAULT_CURSOR_SIZE;
 let enlargeCursor = false;
 let cursorHoverSize = {
@@ -75,6 +80,9 @@ let hoveringButton;
 let STORY;
 
 var charGrid;
+var lineEdit;
+
+let isTyping = false;
 
 function preload() {
   //loadStory();
@@ -87,17 +95,33 @@ function setup() {
   textFont("Courier");
 
   charGrid = new Paper("#111", COLOR_WHITE);
+  lineEdit = new LineEditWindow();
 
-  charGrid.addLine("It is dark.\n\nI can barely tell where the #window is.\n\nI see #something growing in the dark.\n\nThe #button is not working.");
-  charGrid.addLine("\n\nAs everyone stops talking and the room suddenly goes quiet, you hear something from the AC. However, it does not sound like something from an AC.\n\nSerena smells the air and says, \"Fuck...\" Out of the blue, she drops her glass onto the carpet with a thud and she falls down on the ground.\n\n\"Serena!\" Evan rushes towards Serena, but he seems to lose his strength on his legs and falls onto the floor as well.\n\n\"Luke...\" Ali gradually lies on the ground while Tony tries to open the office door. He has no strength against the locked glass door and falls down after.\n\nYou feel a little bit tired--really tired. You are so tired that you want to just lie on the ground and fall asleep. You cannot fight it. A powerful force drags you to the ground along with Ali, Evan, Serena, and Tony.");
-  charGrid.updateLightSource();
+
+  charGrid.addLine("This is a #button.");
+  charGrid.addLine("\n\nThis is a #>draggable.");
+  charGrid.addLine("\n\nThis is a #<droppable.");
+  charGrid.addLine("\n\nThis is a #^linkable1.");
+  charGrid.addLine("\n\nThis is a #^linkable2.");
+  charGrid.addLine("\n\nThis is a #:typable. Click to guess and type out the word.");
+  charGrid.addLine("\n\nThis is a sentence.");
 
   noCursor();
+}
+
+function loadStory() {
+  STORY = loadJSON("data/story.json");
 }
 
 function draw() {
   background(0);
   displayNoteEditor();
+  lineEdit.display();
+
+  if (clickedItem != null && clickedItem instanceof WordLinkable){
+    showLink();
+  }
+
   showCursor();
 }
 
@@ -114,6 +138,29 @@ function checkForMouseOver(x, y, w, h) {
     mouseY >= y - h / 2 && mouseY <= y + h / 2);
 }
 
+// check for delete and return key
+function keyPressed() {
+  if (isTyping) {
+    // delete
+    if (keyCode === 8) {
+      lineEdit.removeLastChar();
+    }
+    // return
+    if (keyCode === 13) {
+
+    }
+  }
+}
+
+// check for character typed
+function keyTyped() {
+  if (isTyping) {
+    if (ALL_CHAR.includes(key)) {
+      lineEdit.updateText(key);
+    }
+  }
+}
+
 // display a custom circular cursor
 // automatically widen to the word's width when hovering on a clickable word
 function showCursor() {
@@ -122,6 +169,7 @@ function showCursor() {
   cursorOffset.y = lerp(cursorOffset.y, cursorOffset.targetY, 0.2);
   translate(mouseX + cursorOffset.x, mouseY + cursorOffset.y);
   rectMode(CENTER);
+  ellipseMode(CENTER);
   noStroke();
   if (mouseIsPressed) {
     fill(255, 255, 255, 150);
@@ -140,6 +188,8 @@ function showCursor() {
     cursorHoverSize.h = lerp(cursorHoverSize.h, 0, 0.3);
     cursorOffset.x = 0;
     cursorOffset.y = 0;
+    cursorOffset.targetX = 0;
+    cursorOffset.targetY = 0;
     cursorHoverSize.targetWidth = 0;
     rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
     ellipse(0, 0, cursorSize);
@@ -154,6 +204,17 @@ function wordButtonIsHovered(ref, x, y, width) {
   cursorHoverSize.targetWidth = width
 }
 
-function loadStory() {
-  STORY = loadJSON("data/story.json");
+// update dragged item
+function updateSelectedItem(type, id) {
+  selectedItem.type = type;
+  selectedItem.id = id;
+}
+
+function showLink(){
+  push();
+  stroke(255, 255, 255, 150);
+  strokeWeight(4);
+  strokeCap(ROUND);
+  line(clickedItem.globalX + clickedItem.width/2, clickedItem.globalY + MAX_NOTE_SIZE/CHAR_HEIGHT/2, mouseX, mouseY);
+  pop();
 }

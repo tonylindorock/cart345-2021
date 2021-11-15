@@ -53,9 +53,37 @@ class Paper {
 
     let newWord;
     if (word.charAt(0) === '#'){
-      word = word.replace('#', '');
-      console.log("Add a button");
-      newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+      switch (word.charAt(1)){
+        // draggable
+        case ">":
+          word = word.replace('#>', '');
+          console.log("Add a draggable");
+          newWord = new WordDraggable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          break;
+        // droppable
+        case "<":
+          word = word.replace('#<', '');
+          console.log("Add a droppable");
+          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          break;
+        // linkable
+        case "^":
+          word = word.replace('#^', '');
+          console.log("Add a linkable");
+          newWord = new WordLinkable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
+          break;
+        // typable
+        case ":":
+          word = word.replace('#:', '');
+          console.log("Add a typable");
+          newWord = new WordTypable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          break;
+        // button
+        default:
+          word = word.replace('#', '');
+          console.log("Add a button");
+          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+      }
     }else{
       newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
     }
