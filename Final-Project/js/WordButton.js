@@ -2,10 +2,10 @@ class WordButton extends Word {
   constructor(x, y, chars, disabled = false) {
     super(x, y, chars);
 
-    super.isLightSource = true;
+    this.isLightSource = true;
 
-    super.rgb = [255, 157, 38];
-    super.underline = true;
+    this.rgb = [255, 157, 38];
+    this.underline = true;
 
     this.mouseClicked = false;
     this.isHovered = false;
@@ -43,9 +43,6 @@ class WordButton extends Word {
 
       if (this.isHovered){
         enlargeCursor = true;
-        if (hoveredItem instanceof WordDroppable && !(clickedItem instanceof WordDraggable)){
-          enlargeCursor = false;
-        }
         if (!disableCursorAnimation){
           wordButtonIsHovered(this, this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width);
         }

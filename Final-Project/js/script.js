@@ -205,7 +205,7 @@ function showCursor() {
     }else if(clickedItem instanceof WordDraggable && hoveredItem instanceof WordDroppable){
       noStroke();
       fill(255, 255, 255, 60);
-      rect(0, 0, cursorHoverSize.w + 16, cursorHoverSize.h + 16, 8);
+      rect(0, 0, cursorHoverSize.w + 16, cursorHoverSize.h + 16, 12);
     }else{
       noStroke();
       rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
@@ -255,7 +255,7 @@ function showDraggable(){
   noStroke();
   //fill(COLOR_BLACK);
   //rect(mouseX, mouseY, clickedItem.width, MAX_NOTE_SIZE/CHAR_HEIGHT, 8);
-  fill(COLOR_ORANGE);
+  fill(COLOR_GREEN);
   if (clickedItem != null && clickedItem instanceof WordDraggable){
     let x = mouseX - draggableInstance.offsetX;
     let y = mouseY - draggableInstance.offsetY;
@@ -280,7 +280,7 @@ function showDraggable(){
       draggableInstance.opacity = lerp(draggableInstance.opacity, 0, s * 2.5);
     }
 
-    fill(255, 157, 38, draggableInstance.opacity);
+    fill(51, 222, 122, draggableInstance.opacity);
     text(draggableInstance.chars, draggableInstance.x, draggableInstance.y);
   }
   pop();

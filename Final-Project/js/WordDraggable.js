@@ -3,20 +3,28 @@ class WordDraggable extends WordButton{
   constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars, disabled);
 
+    this.rgb = [51, 222, 122];
+
     this.isDraggable = false;
 
     this.offsetX = 0.0;
     this.offsetY = 0.0;
 
+    this.chars = chars.replace(' ', '');
+
     var thisBtn = this;
     this.func = function(){
-      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ")/2;
+      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ")/2 - textWidth(" ")/2;
       draggableInstance.y = thisBtn.globalY + MAX_NOTE_SIZE/CHAR_HEIGHT/2;
       draggableInstance.originX = thisBtn.globalX;
       draggableInstance.originY = thisBtn.globalY;
       draggableInstance.offsetX = mouseX - draggableInstance.x;
       draggableInstance.offsetY = mouseY - draggableInstance.y;
-      draggableInstance.chars = thisBtn.chars;
+      if (thisBtn.chars.charAt(thisBtn.chars.length - 1) === '.'){
+        draggableInstance.chars = thisBtn.chars.replace('.','');
+      }else{
+        draggableInstance.chars = thisBtn.chars;
+      }
       draggableInstance.opacity = 255;
     }
   }

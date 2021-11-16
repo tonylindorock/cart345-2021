@@ -2,6 +2,8 @@ class WordTypable extends WordButton {
   constructor(x, y, chars, disabled = false) {
     super(x, y, chars, disabled);
 
+    this.rgb = [192, 115, 255];
+
     this.originText = chars;
     this.typableText = this.originText;
     this.randomizeDisplayText();
