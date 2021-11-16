@@ -23,10 +23,10 @@ class WordButton extends Word {
         hoveredItem = this;
       }
 
-      if (mouseIsPressed) {
-        if (clickedItem === null){
-          clickedItem = this;
-        }
+      if (mouseIsPressed && (clickedItem === null || clickedItem === this)) {
+        lastClickedItem = clickedItem;
+        clickedItem = this;
+
         this.mouseClicked = true;
         // do once
         if (this.pressTime < 1) {
@@ -43,7 +43,12 @@ class WordButton extends Word {
 
       if (this.isHovered){
         enlargeCursor = true;
-        wordButtonIsHovered(this, this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width);
+        if (hoveredItem instanceof WordDroppable && !(clickedItem instanceof WordDraggable)){
+          enlargeCursor = false;
+        }
+        if (!disableCursorAnimation){
+          wordButtonIsHovered(this, this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width);
+        }
       }
 
     } else {
@@ -55,6 +60,8 @@ class WordButton extends Word {
       }
 
       if (!mouseIsPressed && clickedItem === this){
+        disableCursorAnimation = false;
+        lastClickedItem = clickedItem;
         clickedItem = null;
       }
     }

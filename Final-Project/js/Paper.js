@@ -58,13 +58,13 @@ class Paper {
         case ">":
           word = word.replace('#>', '');
           console.log("Add a draggable");
-          newWord = new WordDraggable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          newWord = new WordDraggable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
           break;
         // droppable
         case "<":
           word = word.replace('#<', '');
           console.log("Add a droppable");
-          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          newWord = new WordDroppable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
           break;
         // linkable
         case "^":
@@ -142,7 +142,6 @@ class Paper {
     //rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
     // display characters
     noStroke();
-    textFont(this.font);
     for (let i = 0; i < this.words.length; i++) {
       for (let j = 0; j < this.words[i].length; j++) {
         this.words[i][j].display();

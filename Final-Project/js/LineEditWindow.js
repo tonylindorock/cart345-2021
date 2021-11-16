@@ -32,8 +32,8 @@ class LineEditWindow{
       this.offsetX = lerp(this.offsetX, 0, this.animSpeed);
       this.offsetY = lerp(this.offsetY, 0, this.animSpeed);
     }else{
-      this.offsetX = lerp(this.offsetX, MARGIN * 7, this.animSpeed);
-      this.offsetY = lerp(this.offsetY, MARGIN * 7, this.animSpeed);
+      this.offsetX = lerp(this.offsetX, MARGIN * 7, this.animSpeed - 0.05);
+      this.offsetY = lerp(this.offsetY, MARGIN * 7, this.animSpeed - 0.05);
     }
     translate(this.x + this.offsetX, this.y + this.offsetY);
     rectMode(CENTER);

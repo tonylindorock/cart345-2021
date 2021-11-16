@@ -54,14 +54,25 @@ const FLASH_RADIUS = 160;
 const DEFAULT_CURSOR_SIZE = 16;
 const LARGER_CURSOR_SIZE = 24;
 
-let selectedItem = {
-  type: "",
-  id: -1
-};
+let draggableInstance = {
+  offsetX: 0,
+  offsetY: 0,
+  x: 0,
+  y: 0,
+  originX: 0,
+  originY: 0,
+  dropX: 0,
+  dropY: 0,
+  opacity: 255,
+  speed: 0.08,
+  chars: ""
+}
 
+let lastClickedItem = null;
 let clickedItem = null;
 let hoveredItem = null;
 
+let disableCursorAnimation = false;
 let cursorSize = DEFAULT_CURSOR_SIZE;
 let enlargeCursor = false;
 let cursorHoverSize = {
@@ -98,11 +109,11 @@ function setup() {
   lineEdit = new LineEditWindow();
 
 
-  charGrid.addLine("This is a #button.");
-  charGrid.addLine("\n\nThis is a #>draggable.");
+  charGrid.addLine("This is a #button. Click it to trigger something.");
+  charGrid.addLine("\n\nThis is a #>draggable. Drag it to a blank space.");
   charGrid.addLine("\n\nThis is a #<droppable.");
-  charGrid.addLine("\n\nThis is a #^linkable1.");
-  charGrid.addLine("\n\nThis is a #^linkable2.");
+  charGrid.addLine("\n\nThis is a #^[1]linkable1.");
+  charGrid.addLine("\n\nThis is a #^[1]linkable2. Drag one to link it to the another.");
   charGrid.addLine("\n\nThis is a #:typable. Click to guess and type out the word.");
   charGrid.addLine("\n\nThis is a sentence.");
 
@@ -118,9 +129,12 @@ function draw() {
   displayNoteEditor();
   lineEdit.display();
 
-  if (clickedItem != null && clickedItem instanceof WordLinkable){
-    showLink();
+  if (clickedItem != null){
+    if (clickedItem instanceof WordLinkable){
+      showLink();
+    }
   }
+  showDraggable();
 
   showCursor();
 }
@@ -180,12 +194,22 @@ function showCursor() {
     cursorSize = lerp(cursorSize, LARGER_CURSOR_SIZE, 0.2);
     cursorHoverSize.w = lerp(cursorHoverSize.w, cursorHoverSize.targetWidth, 0.3);
     cursorHoverSize.h = lerp(cursorHoverSize.h, MAX_NOTE_SIZE / CHAR_HEIGHT, 0.3);
-    if (clickedItem instanceof WordLinkable && clickedItem != hoveredItem){
+    // case 1: dragging linkable
+    // case 2: dragging draggable
+    if ((clickedItem instanceof WordLinkable && clickedItem != hoveredItem) || (clickedItem instanceof WordDraggable && hoveredItem === clickedItem)){
       noFill();
       strokeWeight(4);
       stroke(255, 255, 255, 150);
+      rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
+    // if dragging a draggable and hovering on a droppable
+    }else if(clickedItem instanceof WordDraggable && hoveredItem instanceof WordDroppable){
+      noStroke();
+      fill(255, 255, 255, 60);
+      rect(0, 0, cursorHoverSize.w + 16, cursorHoverSize.h + 16, 8);
+    }else{
+      noStroke();
+      rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
     }
-    rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
   } else {
     cursorSize = lerp(cursorSize, DEFAULT_CURSOR_SIZE, 0.2);
     cursorHoverSize.w = lerp(cursorHoverSize.w, 0, 0.3);
@@ -221,5 +245,43 @@ function showLink(){
   strokeWeight(4);
   strokeCap(ROUND);
   line(clickedItem.globalX + clickedItem.width/2, clickedItem.globalY + MAX_NOTE_SIZE/CHAR_HEIGHT/2, mouseX, mouseY);
+  pop();
+}
+
+function showDraggable(){
+  push();
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  noStroke();
+  //fill(COLOR_BLACK);
+  //rect(mouseX, mouseY, clickedItem.width, MAX_NOTE_SIZE/CHAR_HEIGHT, 8);
+  fill(COLOR_ORANGE);
+  if (clickedItem != null && clickedItem instanceof WordDraggable){
+    let x = mouseX - draggableInstance.offsetX;
+    let y = mouseY - draggableInstance.offsetY;
+
+    text(draggableInstance.chars, x, y);
+    // remember cursor position
+    draggableInstance.x = x;
+    draggableInstance.y = y;
+    draggableInstance.dropX = x;
+    draggableInstance.dropY = y;
+  }else if(lastClickedItem != null && lastClickedItem instanceof WordDraggable){
+    let s = draggableInstance.speed;
+    let orgX = draggableInstance.originX + textWidth(draggableInstance.chars + " ")/2;
+    let orgY = draggableInstance.originY + MAX_NOTE_SIZE/CHAR_HEIGHT/2;
+    // move draggable back to its original position
+    draggableInstance.x = lerp(draggableInstance.x, orgX, s);
+    draggableInstance.y = lerp(draggableInstance.y, orgY, s);
+
+    let d = dist(draggableInstance.x, draggableInstance.y, orgX, orgY); // get distance to origin
+    // if close enough, turn to transparent
+    if (d <= 16){
+      draggableInstance.opacity = lerp(draggableInstance.opacity, 0, s * 2.5);
+    }
+
+    fill(255, 157, 38, draggableInstance.opacity);
+    text(draggableInstance.chars, draggableInstance.x, draggableInstance.y);
+  }
   pop();
 }
