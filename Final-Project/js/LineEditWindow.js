@@ -13,7 +13,8 @@ class LineEditWindow{
     this.text = "";
     this.canType = true;
 
-    this.charNum = 0;
+    this.ANSWER = "";
+    this.CHAR_NUM = 0;
   }
 
   updateText(char){
@@ -24,6 +25,14 @@ class LineEditWindow{
 
   removeLastChar(){
     this.text = this.text.substring(0, this.text.length - 1);
+  }
+
+  verify(){
+    if (this.text === this.ANSWER){
+      if (lastClickedItem instanceof WordTypable){
+        lastClickedItem.complete();
+      }
+    }
   }
 
   display(){
@@ -42,7 +51,7 @@ class LineEditWindow{
     fill(COLOR_WHITE);
     rect(-this.width/2, -this.height/2, this.width, this.height, 16);
     fill(COLOR_BLACK);
-    let charLeft = this.charNum - this.text.length;
+    let charLeft = this.CHAR_NUM - this.text.length;
 
     if (charLeft <= 0){
       this.canType = false;

@@ -1,7 +1,17 @@
 {
   "passages": [{
-    "text": "It is dark.\n\nOnly if I can have a #flashlight.",
-    "options": [1]
+    "text": "",
+    "options": [1],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": [0, 1]
+  },
+  {
+    "text": "",
+    "options": [1],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": [0, 1]
   }
   ]
 }

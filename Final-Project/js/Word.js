@@ -12,8 +12,6 @@ class Word {
     this.underlineColor = COLOR_WHITE;
     this.highlightColor = HIGHLIGHT_COLORS[0];
 
-    this.button = null;
-
     this.originX = x;
     this.originY = y;
 

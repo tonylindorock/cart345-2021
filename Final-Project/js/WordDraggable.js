@@ -10,6 +10,8 @@ class WordDraggable extends WordButton{
     this.offsetX = 0.0;
     this.offsetY = 0.0;
 
+    this.id = id;
+
     this.chars = chars.replace(' ', '');
 
     var thisBtn = this;
@@ -46,7 +48,7 @@ class WordDraggable extends WordButton{
     if (clickedItem === this){
       this.opacity = 255 * 0.5;
     }else{
-      this.opacity = 255;
+      this.opacity = lerp(this.opacity, 255, 0.05);
     }
     super.display();
   }

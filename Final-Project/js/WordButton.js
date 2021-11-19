@@ -10,6 +10,7 @@ class WordButton extends Word {
     this.mouseClicked = false;
     this.isHovered = false;
     this.pressTime = 0;
+    
     this.disabled = disabled;
 
     this.func = null;

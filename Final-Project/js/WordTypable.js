@@ -4,19 +4,24 @@ class WordTypable extends WordButton {
 
     this.rgb = [192, 115, 255];
 
-    this.originText = chars;
-    this.typableText = this.originText;
+    this.ORIGINAL_TEXT = chars;
+    this.typableText = this.ORIGINAL_TEXT;
     this.randomizeDisplayText();
+
 
     this.func = function(){
       lineEdit.show = !lineEdit.show;
-      lineEdit.charNum = this.typableText.length;
+      if (lastClickedItem != this){
+        lineEdit.show = true;
+      }
+      lineEdit.ANSWER = this.typableText;
+      lineEdit.CHAR_NUM = this.typableText.length;
       isTyping = true;
     };
   }
 
   randomizeDisplayText() {
-    let word = this.originText;
+    let word = this.ORIGINAL_TEXT;
     // remove white space and period
     word = word.replace(' ', '');
     word = word.replace('.', '');
@@ -39,6 +44,12 @@ class WordTypable extends WordButton {
     for (let i = 0; i < a.length; i++) {
       this.chars = this.setCharAt(this.chars, a[i], "*");
     }
+  }
+
+  complete(){
+    this.chars = this.ORIGINAL_TEXT;
+    this.disabled = true;
+    lineEdit.show = false;
   }
 
   display() {
