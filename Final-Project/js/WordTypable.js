@@ -49,6 +49,7 @@ class WordTypable extends WordButton {
     this.chars = this.ORIGINAL_TEXT;
     this.disabled = true;
     lineEdit.show = false;
+    feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
   }
 
   display() {

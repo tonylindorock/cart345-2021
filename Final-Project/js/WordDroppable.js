@@ -18,6 +18,7 @@ class WordDroppable extends WordButton{
   complete(){
     this.chars = this.ORIGINAL_TEXT;
     this.disabled = true;
+    feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
   }
 
   detectDrop(){
@@ -29,6 +30,7 @@ class WordDroppable extends WordButton{
         if (this.NO_SPACE === lastClickedItem.chars){
           this.complete();
         }else{
+          feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 1);
           console.log("Wrong draggable");
         }
       }

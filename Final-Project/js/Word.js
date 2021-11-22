@@ -30,6 +30,9 @@ class Word {
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
     this.globalY = this.posY + TOP_MARGIN;
 
+    this.globalXCenter = this.globalX + this.width/2;
+    this.globalYCenter = this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2;
+
     this.isLightSource = false;
     this.nearbyLight = [];
 

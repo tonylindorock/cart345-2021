@@ -1,11 +1,12 @@
 class LineEditWindow{
   constructor(){
-    this.x = windowWidth - MARGIN;
-    this.y = windowHeight - MARGIN;
     this.offsetX = 0;
     this.offsetY = 0;
     this.width = (windowWidth - MAX_NOTE_SIZE)/2.25;
     this.height = 128;
+
+    this.x = windowWidth/2 + this.width/2;
+    this.y = windowHeight - MARGIN;
 
     this.show = false;
     this.animSpeed = 0.15;
@@ -44,7 +45,7 @@ class LineEditWindow{
       this.offsetX = lerp(this.offsetX, MARGIN * 7, this.animSpeed - 0.05);
       this.offsetY = lerp(this.offsetY, MARGIN * 7, this.animSpeed - 0.05);
     }
-    translate(this.x + this.offsetX, this.y + this.offsetY);
+    translate(this.x, this.y + this.offsetY);
     rectMode(CENTER);
     textAlign(CENTER, CENTER);
     noStroke();

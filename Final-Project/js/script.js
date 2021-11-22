@@ -54,6 +54,9 @@ const FLASH_RADIUS = 160;
 const DEFAULT_CURSOR_SIZE = 16;
 const LARGER_CURSOR_SIZE = 24;
 
+let ICON_SUCCESS;
+let ICON_FAIL;
+
 let draggableInstance = {
   offsetX: 0,
   offsetY: 0,
@@ -92,11 +95,15 @@ let STORY;
 
 var charGrid;
 var lineEdit;
+var feedbackSystem;
 
 let isTyping = false;
 
 function preload() {
   loadStory();
+
+  ICON_SUCCESS = loadImage("assets/images/icon_success.png");
+  ICON_FAIL = loadImage("assets/images/icon_fail.png");
 }
 
 function setup() {
@@ -107,6 +114,7 @@ function setup() {
 
   charGrid = new Paper("#111", COLOR_WHITE);
   lineEdit = new LineEditWindow();
+  feedbackSystem = new Notification();
 
   charGrid.addLine("This is a #button. Click it to trigger something.");
   charGrid.addLine("\n\nThis is a #>draggable. Drag it to a blank space.");
@@ -128,6 +136,7 @@ function draw() {
   background(0);
   displayNoteEditor();
   lineEdit.display();
+  feedbackSystem.display();
 
   if (clickedItem != null) {
     if (clickedItem instanceof WordLinkable) {
