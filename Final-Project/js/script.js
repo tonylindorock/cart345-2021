@@ -92,10 +92,13 @@ let cursorOffset = {
 let hoveringButton;
 
 let STORY;
+let passageId = 0;
 
 var charGrid;
 var lineEdit;
 var feedbackSystem;
+
+let linkContainer = [];
 
 let isTyping = false;
 
@@ -104,6 +107,32 @@ function preload() {
 
   ICON_SUCCESS = loadImage("assets/images/icon_success.png");
   ICON_FAIL = loadImage("assets/images/icon_fail.png");
+}
+
+function loadConfig(){
+  // current passage dictionary
+  let currentPassage = STORY["passages"][passageId];
+
+  let linkables = currentPassage["linkables"];
+  if (linkables != null){
+    if (Array.isArray(linkables)){
+      return linkables;
+    }
+  }
+}
+
+function checkLink(l1, l2){
+  // load link config
+  let link = loadConfig();
+  for(let i = 0; i < link.length; i++){
+    // if array has both link id
+    if (link[i].includes(l1) && link[i].includes(l2)){
+      console.log("Correct links");
+      return true;
+    }
+  }
+  console.log("Incorrect links");
+  return false;
 }
 
 function setup() {
@@ -135,6 +164,7 @@ function loadStory() {
 function draw() {
   background(0);
   displayNoteEditor();
+  displayAllVisibleLinks();
   lineEdit.display();
   feedbackSystem.display();
 
@@ -255,6 +285,17 @@ function showLink() {
   strokeCap(ROUND);
   line(clickedItem.globalX + clickedItem.width / 2, clickedItem.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2, mouseX, mouseY);
   pop();
+}
+
+function addVisibleLink(x1, y1, x2, y2){
+  let line = new Line(x1, y1, x2, y2);
+  linkContainer.push(line);
+}
+
+function displayAllVisibleLinks(){
+  for(let i = 0; i< linkContainer.length; i++){
+    linkContainer[i].display();
+  }
 }
 
 function showDraggable() {

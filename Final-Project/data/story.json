@@ -4,14 +4,14 @@
     "options": [1],
     "draggables": [0],
     "droppables": [0],
-    "linkables": [0, 1]
+    "linkables": [[0,1]]
   },
   {
     "text": "",
-    "options": [1],
+    "options": [0],
     "draggables": [0],
     "droppables": [0],
-    "linkables": [0, 1]
+    "linkables": null
   }
   ]
 }
