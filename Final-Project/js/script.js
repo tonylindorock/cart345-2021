@@ -110,7 +110,8 @@ function setup() {
 
   charGrid.addLine("This is a #button. Click it to trigger something.");
   charGrid.addLine("\n\nThis is a #>draggable. Drag it to a blank space.");
-  charGrid.addLine("\n\nThis is a #<droppable.");
+  charGrid.addLine("\n\nThis is a #<draggable. Droppable needs to have the same name as its draggable.");
+  charGrid.addLine("\n\nThis is a #<droppable. This needs a \"droppable\".");
   charGrid.addLine("\n\nThis is a #^linkable1.");
   charGrid.addLine("\n\nThis is a #^linkable2. Drag one to link it to the another.");
   charGrid.addLine("\n\nThis is a #:typable. Click to guess and type out the word.");

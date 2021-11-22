@@ -6,14 +6,45 @@ class WordDroppable extends WordButton{
 
     this.id = id;
 
-    this.originText = chars.replace(' ', '');
+    this.dropFrame = 0;
+    this.dropPossible = false;
+
+    this.ORIGINAL_TEXT = this.chars;
+    this.NO_SPACE = this.ORIGINAL_TEXT.replace(' ', '');
+
     this.getBlankSpace();
+  }
+
+  complete(){
+    this.chars = this.ORIGINAL_TEXT;
+    this.disabled = true;
+  }
+
+  detectDrop(){
+    if (clickedItem instanceof WordDraggable && mouseIsPressed && this.isHovered){
+      this.dropFrame = 1;
+    }
+    if (this.dropFrame === 1){
+      if(this.isHovered && lastClickedItem instanceof WordDraggable && !mouseIsPressed){
+        if (this.NO_SPACE === lastClickedItem.chars){
+          this.complete();
+        }else{
+          console.log("Wrong draggable");
+        }
+      }
+      if (!mouseIsPressed){
+        if (this.dropFrame > 0){
+          this.dropFrame -= 1;
+        }
+      }
+    }
   }
 
   getBlankSpace(){
     let blank = "";
-    for(let i = 0; i < this.originText.length; i++){
-      if (this.originText.charAt(i) === '.'){
+    this.NO_SPACE = this.ORIGINAL_TEXT.replace(' ', '');
+    for(let i = 0; i < this.NO_SPACE.length; i++){
+      if (this.NO_SPACE.charAt(i) === '.'){
         blank += ".";
       }else{
         blank += " ";
@@ -23,6 +54,7 @@ class WordDroppable extends WordButton{
   }
 
   display(){
+    this.detectDrop();
     super.display();
   }
 }
