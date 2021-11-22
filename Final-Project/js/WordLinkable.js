@@ -18,6 +18,7 @@ class WordLinkable extends WordButton{
     addVisibleLink(this.globalXCenter, this.globalYCenter, lastClickedItem.globalXCenter, lastClickedItem.globalYCenter);
     this.disabled = true;
     lastClickedItem.disabled = true;
+    feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
   }
 
   detectLink(){
