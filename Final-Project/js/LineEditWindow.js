@@ -33,6 +33,10 @@ class LineEditWindow{
       if (lastClickedItem instanceof WordTypable){
         lastClickedItem.complete();
       }
+    }else{
+      if (lastClickedItem instanceof WordTypable){
+        feedbackSystem.showFeedback(this.x - this.width/2, this.y - this.height - MARGIN, 1);
+      }
     }
   }
 

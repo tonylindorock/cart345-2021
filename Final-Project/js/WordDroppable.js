@@ -2,6 +2,8 @@ class WordDroppable extends WordButton{
   constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars, disabled);
 
+    this.clickable = false;
+
     this.rgb = [51, 222, 122];
 
     this.id = id;
@@ -27,7 +29,7 @@ class WordDroppable extends WordButton{
     }
     if (this.dropFrame === 1){
       if(this.isHovered && lastClickedItem instanceof WordDraggable && !mouseIsPressed){
-        if (this.NO_SPACE === lastClickedItem.chars){
+        if (this.NO_SPACE === lastClickedItem.draggableChars){
           this.complete();
         }else{
           feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 1);
@@ -44,7 +46,6 @@ class WordDroppable extends WordButton{
 
   getBlankSpace(){
     let blank = "";
-    this.NO_SPACE = this.ORIGINAL_TEXT.replace(' ', '');
     for(let i = 0; i < this.NO_SPACE.length; i++){
       if (this.NO_SPACE.charAt(i) === '.'){
         blank += ".";
@@ -52,7 +53,7 @@ class WordDroppable extends WordButton{
         blank += " ";
       }
     }
-    this.chars = blank;
+    this.chars = blank + " ";
   }
 
   display(){

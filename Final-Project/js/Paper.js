@@ -70,7 +70,8 @@ class Paper {
         case "^":
           word = word.replace('#^', '');
           console.log("Add a linkable");
-          newWord = new WordLinkable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
+          newWord = new WordLinkable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, interactableCounter.linkable);
+          interactableCounter.linkable ++;
           break;
         // typable
         case ":":

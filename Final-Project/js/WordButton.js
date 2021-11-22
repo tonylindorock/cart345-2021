@@ -10,10 +10,13 @@ class WordButton extends Word {
     this.mouseClicked = false;
     this.isHovered = false;
     this.pressTime = 0;
-    
-    this.disabled = disabled;
 
-    this.func = null;
+    this.disabled = disabled;
+    this.clickable = true;
+
+    this.func = function(){
+      charGrid.addLine("\nYou clicked the button.");
+    };
   }
 
   checkForMouse() {
@@ -33,7 +36,7 @@ class WordButton extends Word {
         if (this.pressTime < 1) {
           this.pressTime += 1;
 
-          if (this.func != null) {
+          if (this.func != null && this.clickable) {
             this.func();
           }
         }

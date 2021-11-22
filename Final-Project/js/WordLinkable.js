@@ -25,7 +25,7 @@ class WordLinkable extends WordButton{
     if (clickedItem instanceof WordLinkable && mouseIsPressed && this.isHovered){
       this.dropFrame = 1;
     }
-    if (this.dropFrame === 1){
+    if (this.dropFrame === 1 & this != lastClickedItem){
       if(this.isHovered && lastClickedItem instanceof WordLinkable && !mouseIsPressed){
         if (checkLink(this.id, lastClickedItem.id)){
           this.complete();

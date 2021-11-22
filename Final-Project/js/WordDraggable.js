@@ -13,6 +13,7 @@ class WordDraggable extends WordButton{
     this.id = id;
 
     this.chars = chars.replace(' ', '');
+    this.draggableChars = this.chars.replace('.','');
 
     var thisBtn = this;
     this.func = function(){

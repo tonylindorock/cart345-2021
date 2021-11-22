@@ -57,6 +57,11 @@ const LARGER_CURSOR_SIZE = 24;
 let ICON_SUCCESS;
 let ICON_FAIL;
 
+let interactableCounter = {
+  button: 0,
+  linkable: 0
+}
+
 let draggableInstance = {
   offsetX: 0,
   offsetY: 0,
@@ -122,6 +127,9 @@ function loadConfig(){
 }
 
 function checkLink(l1, l2){
+  if (l1 === l2){
+    return false;
+  }
   // load link config
   let link = loadConfig();
   for(let i = 0; i < link.length; i++){
@@ -145,14 +153,17 @@ function setup() {
   lineEdit = new LineEditWindow();
   feedbackSystem = new Notification();
 
-  charGrid.addLine("This is a #button. Click it to trigger something.");
-  charGrid.addLine("\n\nThis is a #>draggable. Drag it to a blank space.");
-  charGrid.addLine("\n\nThis is a #<draggable. Droppable needs to have the same name as its draggable.");
-  charGrid.addLine("\n\nThis is a #<droppable. This needs a \"droppable\".");
-  charGrid.addLine("\n\nThis is a #^linkable1.");
-  charGrid.addLine("\n\nThis is a #^linkable2. Drag one to link it to the another.");
-  charGrid.addLine("\n\nThis is a #:typable. Click to guess and type out the word.");
-  charGrid.addLine("\n\nThis is a sentence.");
+  charGrid.addLine("Interactivity Examples: ");
+  charGrid.addLine("\n\nCLICK:\nI'm a #button. Click it to trigger something.");
+  charGrid.addLine("\n\nDRAG & DROP:\nDrag it to a blank space to make sense.");
+  charGrid.addLine("\nI have a glass of #>water. I can see my plant is dying. Maybe I should #<water it.");
+  charGrid.addLine("\n\nLINK:");
+  charGrid.addLine("\nDrag one to link it to another to create a new outcome.");
+  charGrid.addLine("\nThe door is strong. I need something powerful to brust it open. A box of #^matches is in my pocket. A #^dynamite sits near my feet.");
+  charGrid.addLine("\n\nTYPE:");
+  charGrid.addLine("\nComplete the word with missing characters.");
+  charGrid.addLine("\n\"A tropical fruit that is yellow? With a pit?\" What else can it be? A #:mango ?");
+  charGrid.addLine("\n");
 
   noCursor();
 }
