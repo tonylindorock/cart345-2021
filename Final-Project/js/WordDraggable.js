@@ -1,7 +1,7 @@
 // a draggable object
 class WordDraggable extends WordButton{
   constructor(x, y, chars, id, disabled = false) {
-    super(x, y, chars, disabled);
+    super(x, y, chars, id, disabled);
 
     this.rgb = [51, 222, 122];
 

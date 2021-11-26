@@ -1,12 +1,22 @@
 {
   "passages": [{
-    "text": "",
-    "options": [1],
+    "id": 0,
+    "text": "Interactivity Examples:\n\nCLICK:\nI'm a #button. Click it to interact.\n\nDRAG & DROP:\nDrag it to a blank space to make sense.\nI have a glass of #>water. I can see my plant is dying. Maybe I should #<water it.\n\nLINK:\nDrag one to link it to another to create a new outcome.\nThe door is strong. I need something powerful to brust it open. A box of #^matches is in my pocket. A #^dynamite sits near my feet.\n\nTYPE:\nComplete the word with missing characters.\n\"A tropical fruit that is yellow? With a pit?\" What else can it be? A #:mango ?\n\n#Back",
+    "options": [0, 1],
     "draggables": [0],
     "droppables": [0],
     "linkables": [[0,1]]
   },
   {
+    "id": 1,
+    "text": "THE NIGHT\n\n#Play \n\n#Tutorial",
+    "options": [2, 0],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": null
+  },
+  {
+    "id": 2,
     "text": "",
     "options": [0],
     "draggables": [0],

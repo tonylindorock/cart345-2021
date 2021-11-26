@@ -1,6 +1,6 @@
 class WordTypable extends WordButton {
   constructor(x, y, chars, disabled = false) {
-    super(x, y, chars, disabled);
+    super(x, y, chars, -1, disabled);
 
     this.rgb = [192, 115, 255];
 

@@ -76,10 +76,14 @@ let draggableInstance = {
   chars: ""
 }
 
+let mouseScrolled = false;
+let scrollTimer = null;
+
 let lastClickedItem = null;
 let clickedItem = null;
 let hoveredItem = null;
 
+let cursorOpacity = 150;
 let disableCursorAnimation = false;
 let cursorSize = DEFAULT_CURSOR_SIZE;
 let enlargeCursor = false;
@@ -97,7 +101,7 @@ let cursorOffset = {
 let hoveringButton;
 
 let STORY;
-let passageId = 0;
+let passageId = 1;
 
 var charGrid;
 var lineEdit;
@@ -126,44 +130,16 @@ function loadConfig(){
   }
 }
 
-function checkLink(l1, l2){
-  if (l1 === l2){
-    return false;
-  }
-  // load link config
-  let link = loadConfig();
-  for(let i = 0; i < link.length; i++){
-    // if array has both link id
-    if (link[i].includes(l1) && link[i].includes(l2)){
-      console.log("Correct links");
-      return true;
-    }
-  }
-  console.log("Incorrect links");
-  return false;
-}
-
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, TOP_MARGIN + MAX_NOTE_SIZE);
 
   textSize(18);
   textFont("Courier");
 
-  charGrid = new Paper("#111", COLOR_WHITE);
+  updatePaper();
+
   lineEdit = new LineEditWindow();
   feedbackSystem = new Notification();
-
-  charGrid.addLine("Interactivity Examples: ");
-  charGrid.addLine("\n\nCLICK:\nI'm a #button. Click it to trigger something.");
-  charGrid.addLine("\n\nDRAG & DROP:\nDrag it to a blank space to make sense.");
-  charGrid.addLine("\nI have a glass of #>water. I can see my plant is dying. Maybe I should #<water it.");
-  charGrid.addLine("\n\nLINK:");
-  charGrid.addLine("\nDrag one to link it to another to create a new outcome.");
-  charGrid.addLine("\nThe door is strong. I need something powerful to brust it open. A box of #^matches is in my pocket. A #^dynamite sits near my feet.");
-  charGrid.addLine("\n\nTYPE:");
-  charGrid.addLine("\nComplete the word with missing characters.");
-  charGrid.addLine("\n\"A tropical fruit that is yellow? With a pit?\" What else can it be? A #:mango ?");
-  charGrid.addLine("\n");
 
   noCursor();
 }
@@ -172,12 +148,37 @@ function loadStory() {
   STORY = loadJSON("data/story.json");
 }
 
+function updatePaper(){
+  charGrid = new Paper("#111", COLOR_WHITE);
+    // reset counter
+  interactableCounter.button = 0;
+  interactableCounter.linkable = 0;
+
+  lastClickedItem = null;
+  clickedItem = null;
+  hoveredItem = null;
+
+  charGrid.addLine(STORY["passages"][passageId]["text"]);
+}
+
+function openHpyerText(id){
+  // if has button id
+  if (id < STORY["passages"][passageId]["options"].length){
+    enlargeCursor = false;
+    // update passage
+    passageId = STORY["passages"][passageId]["options"][id];
+    updatePaper();
+  }else{
+    console.log("Options is fewer than the amount of buttons.");
+  }
+}
+
 function draw() {
   background(0);
   displayNoteEditor();
   displayAllVisibleLinks();
   lineEdit.display();
-  feedbackSystem.display();
+
 
   if (clickedItem != null) {
     if (clickedItem instanceof WordLinkable) {
@@ -187,6 +188,11 @@ function draw() {
   showDraggable();
 
   showCursor();
+  feedbackSystem.display();
+}
+
+function updateWindowHeight(amount){
+  resizeCanvas(windowWidth, windowHeight + amount);
 }
 
 // display note editor
@@ -225,6 +231,22 @@ function keyTyped() {
   }
 }
 
+// if scrolled
+function mouseWheel(event) {
+  // hide mouse
+  mouseScrolled = true;
+}
+
+// if mouse moved
+function mouseMoved() {
+  // if mouse is hidden, enlarge it
+  if (mouseScrolled === true){
+    cursorSize = LARGER_CURSOR_SIZE * 2;
+  }
+  // make mouse appear
+  mouseScrolled = false;
+}
+
 // display a custom circular cursor
 // automatically widen to the word's width when hovering on a clickable word
 function showCursor() {
@@ -234,10 +256,16 @@ function showCursor() {
   translate(mouseX + cursorOffset.x, mouseY + cursorOffset.y);
   rectMode(CENTER);
   ellipseMode(CENTER);
+
+  if (mouseScrolled){
+    cursorOpacity = lerp(cursorOpacity, 0, 0.2);
+  }else{
+    cursorOpacity = lerp(cursorOpacity, 150, 0.2);
+  }
   if (mouseIsPressed) {
-    fill(255, 255, 255, 150);
+    fill(255, 255, 255, cursorOpacity);
   } else {
-    fill(255, 255, 255, 80);
+    fill(255, 255, 255, cursorOpacity/1.875);
   }
 
   if (enlargeCursor) {
@@ -287,6 +315,23 @@ function wordButtonIsHovered(ref, x, y, width) {
 function updateSelectedItem(type, id) {
   selectedItem.type = type;
   selectedItem.id = id;
+}
+
+function checkLink(l1, l2){
+  if (l1 === l2){
+    return false;
+  }
+  // load link config
+  let link = loadConfig();
+  for(let i = 0; i < link.length; i++){
+    // if array has both link id
+    if (link[i].includes(l1) && link[i].includes(l2)){
+      console.log("Correct links");
+      return true;
+    }
+  }
+  console.log("Incorrect links");
+  return false;
 }
 
 function showLink() {

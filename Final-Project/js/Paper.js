@@ -77,13 +77,14 @@ class Paper {
         case ":":
           word = word.replace('#:', '');
           console.log("Add a typable");
-          newWord = new WordTypable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          newWord = new WordTypable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
           break;
         // button
         default:
           word = word.replace('#', '');
           console.log("Add a button");
-          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, interactableCounter.button);
+          interactableCounter.button ++;
       }
     }else{
       newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
@@ -99,6 +100,11 @@ class Paper {
     this.pointerPosX = 0;
     this.lines.push("");
     this.words.push([]);
+
+    if (this.pointerPosY > CHAR_HEIGHT - 1){
+      let extraLine = this.pointerPosY - CHAR_HEIGHT;
+      updateWindowHeight(extraLine * (MAX_NOTE_SIZE/CHAR_HEIGHT));
+    }
   }
 
   addLine(line){
@@ -140,7 +146,7 @@ class Paper {
     stroke(this.bgColor);
     strokeWeight(32);
 
-    //rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
+    rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
     // display characters
     noStroke();
     for (let i = 0; i < this.words.length; i++) {

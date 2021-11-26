@@ -51,7 +51,7 @@ class Notification{
   display(){
     if (this.show){
       this.size = lerp(this.size, this.width, 0.25);
-      this.opacity = lerp(this.opacity, 255, 0.1);
+      this.opacity = 255;
       if (this.timer === null){
         this.startTimer();
       }
@@ -63,6 +63,10 @@ class Notification{
     ellipseMode(CENTER);
     imageMode(CENTER);
     noStroke();
+
+    fill(255, 255, 255, this.opacity);
+    ellipse(this.x,this.y, this.size * 0.5);
+    
     if (this.id === 0){
       this.color = this.BG_GREEN;
       tint(255, this.opacity);
@@ -72,8 +76,6 @@ class Notification{
       tint(255, this.opacity);
       image(ICON_FAIL, this.x,this.y,this.size * this.ICON_SHRINK, this.size * this.ICON_SHRINK);
     }
-    fill(this.color[0], this.color[1], this.color[2], this.opacity);
-    //ellipse(this.x,this.y + this.offsetY, this.width);
 
     pop();
   }

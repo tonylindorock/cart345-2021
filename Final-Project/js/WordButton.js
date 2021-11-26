@@ -1,6 +1,8 @@
 class WordButton extends Word {
-  constructor(x, y, chars, disabled = false) {
+  constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars);
+
+    this.id = id;
 
     this.isLightSource = true;
 
@@ -15,7 +17,7 @@ class WordButton extends Word {
     this.clickable = true;
 
     this.func = function(){
-      charGrid.addLine("\nYou clicked the button.");
+      openHpyerText(this.id);
     };
   }
 
@@ -38,6 +40,7 @@ class WordButton extends Word {
 
           if (this.func != null && this.clickable) {
             this.func();
+            this.isHovered = false;
           }
         }
       } else {
