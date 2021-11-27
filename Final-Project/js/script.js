@@ -1,10 +1,14 @@
 /*****************
 
-Title of Project (Demo)
+The Old House
 Yichen Wang
+CART 345
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+The Old House is a demo for a more interactive interactive fiction.
+It features clicking, drag-and-dropping, linking, and typing as
+its 4 main interactive methods.
+The cursor also serves as a more interesting device that adopts
+different interactive elements and manipulates the text around it.
 
 ******************/
 const CHAR_WIDTH = 64;

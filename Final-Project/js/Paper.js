@@ -25,11 +25,11 @@ class Paper {
     // separate new line
     let noReturn = characters.split('\n');
 
-    for (let i = 0; i < noReturn.length; i++){
+    for (let i = 0; i < noReturn.length; i++) {
       // add a new word
       this.addWordToPaper(noReturn[i]);
       // run each time when there is a gap between element
-      if (i + 1 <= noReturn.length - 1){
+      if (i + 1 <= noReturn.length - 1) {
         this.addWordToPaper("");
         this.nextLine();
       }
@@ -37,14 +37,14 @@ class Paper {
   }
 
   // check for space in a line
-  hasSpace(width){
+  hasSpace(width) {
     let x = textWidth(this.lines[this.pointerPosY]);
     return (MAX_NOTE_SIZE - x > width);
   }
 
-  addWordToPaper(word){
+  addWordToPaper(word) {
     // if no space, add a new line
-    if (!this.hasSpace(textWidth(word))){
+    if (!this.hasSpace(textWidth(word))) {
       this.nextLine();
     }
     // get the current width of text
@@ -52,42 +52,42 @@ class Paper {
     // create a Word object
 
     let newWord;
-    if (word.charAt(0) === '#'){
-      switch (word.charAt(1)){
+    if (word.charAt(0) === '#') {
+      switch (word.charAt(1)) {
         // draggable
         case ">":
           word = word.replace('#>', '');
           console.log("Add a draggable");
-          newWord = new WordDraggable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
+          newWord = new WordDraggable(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, 0);
           break;
-        // droppable
+          // droppable
         case "<":
           word = word.replace('#<', '');
           console.log("Add a droppable");
-          newWord = new WordDroppable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
+          newWord = new WordDroppable(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, 0);
           break;
-        // linkable
+          // linkable
         case "^":
           word = word.replace('#^', '');
           console.log("Add a linkable");
-          newWord = new WordLinkable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, interactableCounter.linkable);
-          interactableCounter.linkable ++;
+          newWord = new WordLinkable(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, interactableCounter.linkable);
+          interactableCounter.linkable++;
           break;
-        // typable
+          // typable
         case ":":
           word = word.replace('#:', '');
           console.log("Add a typable");
-          newWord = new WordTypable(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, 0);
+          newWord = new WordTypable(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, 0);
           break;
-        // button
+          // button
         default:
           word = word.replace('#', '');
           console.log("Add a button");
-          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word, interactableCounter.button);
-          interactableCounter.button ++;
+          newWord = new WordButton(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, interactableCounter.button);
+          interactableCounter.button++;
       }
-    }else{
-      newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE/CHAR_HEIGHT,word);
+    } else {
+      newWord = new Word(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word);
     }
     // update
     this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
@@ -95,39 +95,39 @@ class Paper {
   }
 
   // go to the next line
-  nextLine(){
+  nextLine() {
     this.pointerPosY += 1;
     this.pointerPosX = 0;
     this.lines.push("");
     this.words.push([]);
 
-    if (this.pointerPosY > CHAR_HEIGHT - 1){
+    if (this.pointerPosY > CHAR_HEIGHT - 1) {
       let extraLine = this.pointerPosY - CHAR_HEIGHT;
-      updateWindowHeight(extraLine * (MAX_NOTE_SIZE/CHAR_HEIGHT));
+      updateWindowHeight(extraLine * (MAX_NOTE_SIZE / CHAR_HEIGHT));
     }
   }
 
-  addLine(line){
+  addLine(line) {
     let words = line.split(" ");
     let nextWord = "";
-    for(let i = 0; i < words.length; i++){
-      if (i < words.length - 2){
+    for (let i = 0; i < words.length; i++) {
+      if (i < words.length - 2) {
         nextWord = words[i + 1];
       }
       this.addWord(words[i] + " ", nextWord);
     }
   }
 
-  updateLightSource(){
+  updateLightSource() {
     // find the light source
     for (let i = 0; i < this.words.length; i++) {
       for (let j = 0; j < this.words[i].length; j++) {
-        if (this.words[i][j].isLightSource){
+        if (this.words[i][j].isLightSource) {
           // find nearby words
           for (let a = 0; a < this.words.length; a++) {
             for (let b = 0; b < this.words[a].length; b++) {
               let d = dist(this.words[i][j].globalX, this.words[i][j].globalY, this.words[a][b].globalX, this.words[a][b].globalY);
-              if (d <= LIGHT_RADIUS && d != 0){
+              if (d <= LIGHT_RADIUS && d != 0) {
                 this.words[a][b].nearbyLight.push(this.words[i][j]);
               }
             }

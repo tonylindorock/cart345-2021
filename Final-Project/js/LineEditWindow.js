@@ -1,11 +1,11 @@
-class LineEditWindow{
-  constructor(){
+class LineEditWindow {
+  constructor() {
     this.offsetX = 0;
     this.offsetY = 0;
-    this.width = (windowWidth - MAX_NOTE_SIZE)/2.25;
+    this.width = (windowWidth - MAX_NOTE_SIZE) / 2.25;
     this.height = 128;
 
-    this.x = windowWidth/2 + this.width/2;
+    this.x = windowWidth / 2 + this.width / 2;
     this.y = windowHeight - MARGIN;
 
     this.show = false;
@@ -18,34 +18,34 @@ class LineEditWindow{
     this.CHAR_NUM = 0;
   }
 
-  updateText(char){
-    if (this.canType){
+  updateText(char) {
+    if (this.canType) {
       this.text += char.toLowerCase();
     }
   }
 
-  removeLastChar(){
+  removeLastChar() {
     this.text = this.text.substring(0, this.text.length - 1);
   }
 
-  verify(){
-    if (this.text === this.ANSWER){
-      if (lastClickedItem instanceof WordTypable){
+  verify() {
+    if (this.text === this.ANSWER) {
+      if (lastClickedItem instanceof WordTypable) {
         lastClickedItem.complete();
       }
-    }else{
-      if (lastClickedItem instanceof WordTypable){
-        feedbackSystem.showFeedback(this.x - this.width/2, this.y - this.height - MARGIN, 1);
+    } else {
+      if (lastClickedItem instanceof WordTypable) {
+        feedbackSystem.showFeedback(this.x - this.width / 2, this.y - this.height - MARGIN, 1);
       }
     }
   }
 
-  display(){
+  display() {
     push();
-    if (this.show){
+    if (this.show) {
       this.offsetX = lerp(this.offsetX, 0, this.animSpeed);
       this.offsetY = lerp(this.offsetY, 0, this.animSpeed);
-    }else{
+    } else {
       this.offsetX = lerp(this.offsetX, MARGIN * 7, this.animSpeed - 0.05);
       this.offsetY = lerp(this.offsetY, MARGIN * 7, this.animSpeed - 0.05);
     }
@@ -54,26 +54,26 @@ class LineEditWindow{
     textAlign(CENTER, CENTER);
     noStroke();
     fill(COLOR_WHITE);
-    rect(-this.width/2, -this.height/2, this.width, this.height, 16);
+    rect(-this.width / 2, -this.height / 2, this.width, this.height, 16);
     fill(COLOR_BLACK);
     let charLeft = this.CHAR_NUM - this.text.length;
 
-    if (charLeft <= 0){
+    if (charLeft <= 0) {
       this.canType = false;
-    }else{
+    } else {
       this.canType = true;
     }
 
-    if (charLeft <= 1){
-      text(charLeft + " character left", -this.width/2, -this.height/2 - 32);
-    }else{
-      text(charLeft + " character left", -this.width/2, -this.height/2 - 32);
+    if (charLeft <= 1) {
+      text(charLeft + " character left", -this.width / 2, -this.height / 2 - 32);
+    } else {
+      text(charLeft + " character left", -this.width / 2, -this.height / 2 - 32);
     }
     // text field
     fill("#262626");
-    rect(-this.width/2, -this.height/2 + 16, this.width * 0.8, this.height * 0.4, 12);
+    rect(-this.width / 2, -this.height / 2 + 16, this.width * 0.8, this.height * 0.4, 12);
     fill(COLOR_ORANGE);
-    text(this.text, -this.width/2, -this.height/2 + 16);
+    text(this.text, -this.width / 2, -this.height / 2 + 16);
     pop();
   }
 }

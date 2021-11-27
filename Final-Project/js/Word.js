@@ -30,7 +30,7 @@ class Word {
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
     this.globalY = this.posY + TOP_MARGIN;
 
-    this.globalXCenter = this.globalX + this.width/2;
+    this.globalXCenter = this.globalX + this.width / 2;
     this.globalYCenter = this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2;
 
     this.isLightSource = false;
@@ -39,26 +39,26 @@ class Word {
     this.underlineWidth = this.width;
   }
 
-  calculateGlobalPos(){
+  calculateGlobalPos() {
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
     this.globalY = this.posY + TOP_MARGIN;
   }
 
-  distToMouse(){
-    this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY),FLASH_RADIUS, 32, 0 ,255);
+  distToMouse() {
+    this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS, 32, 0, 255);
   }
 
-  isNearLight(){
+  isNearLight() {
     let o = 0;
-    for(let i = 0; i < this.nearbyLight.length; i++){
-      o += map(dist(this.globalX, this.globalY, this.nearbyLight[i].globalX, this.nearbyLight[i].globalY),FLASH_RADIUS, 32, 0 ,255);
+    for (let i = 0; i < this.nearbyLight.length; i++) {
+      o += map(dist(this.globalX, this.globalY, this.nearbyLight[i].globalX, this.nearbyLight[i].globalY), FLASH_RADIUS, 32, 0, 255);
       o = constrain(o, 0, 255);
       this.opacity = o;
     }
   }
 
   display() {
-    if (!this.isLightSource){
+    if (!this.isLightSource) {
       //this.distToMouse();
     }
 
@@ -66,9 +66,9 @@ class Word {
     translate(this.posX, this.posY);
     rectMode(CORNER);
 
-    if (this.chars === ""){
+    if (this.chars === "") {
       this.width = textWidth(" ");
-    }else{
+    } else {
       this.width = textWidth(this.chars);
     }
     /**

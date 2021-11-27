@@ -8,9 +8,9 @@ class WordTypable extends WordButton {
     this.typableText = this.ORIGINAL_TEXT;
     this.randomizeDisplayText();
 
-    this.func = function(){
+    this.func = function() {
       lineEdit.show = !lineEdit.show;
-      if (lineEdit.ANSWER != this.typableText){
+      if (lineEdit.ANSWER != this.typableText) {
         lineEdit.show = true;
       }
       lineEdit.ANSWER = this.typableText;
@@ -45,7 +45,7 @@ class WordTypable extends WordButton {
     }
   }
 
-  complete(){
+  complete() {
     this.chars = this.ORIGINAL_TEXT;
     this.disabled = true;
     lineEdit.show = false;

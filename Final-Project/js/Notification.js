@@ -1,7 +1,7 @@
 // gives feedback to users
-class Notification{
-  constructor(){
-    this.width = windowWidth/32;
+class Notification {
+  constructor() {
+    this.width = windowWidth / 32;
     this.size = this.width;
 
     this.ICON_SHRINK = 0.75;
@@ -23,7 +23,7 @@ class Notification{
     this.timer = null;
   }
 
-  showFeedback(x, y, id){
+  showFeedback(x, y, id) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -34,7 +34,7 @@ class Notification{
     this.show = true;
   }
 
-  startTimer(){
+  startTimer() {
     var obj = this;
     this.timer = setInterval(function() {
       obj.show = false;
@@ -48,14 +48,14 @@ class Notification{
     this.timer = null;
   }
 
-  display(){
-    if (this.show){
+  display() {
+    if (this.show) {
       this.size = lerp(this.size, this.width, 0.25);
       this.opacity = 255;
-      if (this.timer === null){
+      if (this.timer === null) {
         this.startTimer();
       }
-    }else{
+    } else {
       this.size = lerp(this.size, 0, 0.2);
       this.opacity = lerp(this.opacity, 0, 0.1);
     }
@@ -65,16 +65,16 @@ class Notification{
     noStroke();
 
     fill(255, 255, 255, this.opacity);
-    ellipse(this.x,this.y, this.size * 0.5);
-    
-    if (this.id === 0){
+    ellipse(this.x, this.y, this.size * 0.5);
+
+    if (this.id === 0) {
       this.color = this.BG_GREEN;
       tint(255, this.opacity);
-      image(ICON_SUCCESS, this.x,this.y,this.size * this.ICON_SHRINK, this.size * this.ICON_SHRINK);
-    }else{
+      image(ICON_SUCCESS, this.x, this.y, this.size * this.ICON_SHRINK, this.size * this.ICON_SHRINK);
+    } else {
       this.color = this.BG_RED;
       tint(255, this.opacity);
-      image(ICON_FAIL, this.x,this.y,this.size * this.ICON_SHRINK, this.size * this.ICON_SHRINK);
+      image(ICON_FAIL, this.x, this.y, this.size * this.ICON_SHRINK, this.size * this.ICON_SHRINK);
     }
 
     pop();

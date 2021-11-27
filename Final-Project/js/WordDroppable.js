@@ -1,4 +1,4 @@
-class WordDroppable extends WordButton{
+class WordDroppable extends WordButton {
   constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars, id, disabled);
 
@@ -17,46 +17,46 @@ class WordDroppable extends WordButton{
     this.getBlankSpace();
   }
 
-  complete(){
+  complete() {
     this.chars = this.ORIGINAL_TEXT;
     this.disabled = true;
     feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
   }
 
-  detectDrop(){
-    if (clickedItem instanceof WordDraggable && mouseIsPressed && this.isHovered){
+  detectDrop() {
+    if (clickedItem instanceof WordDraggable && mouseIsPressed && this.isHovered) {
       this.dropFrame = 1;
     }
-    if (this.dropFrame === 1){
-      if(this.isHovered && lastClickedItem instanceof WordDraggable && !mouseIsPressed){
-        if (this.NO_SPACE === lastClickedItem.draggableChars){
+    if (this.dropFrame === 1) {
+      if (this.isHovered && lastClickedItem instanceof WordDraggable && !mouseIsPressed) {
+        if (this.NO_SPACE === lastClickedItem.draggableChars) {
           this.complete();
-        }else{
+        } else {
           feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 1);
           console.log("Wrong draggable");
         }
       }
-      if (!mouseIsPressed){
-        if (this.dropFrame > 0){
+      if (!mouseIsPressed) {
+        if (this.dropFrame > 0) {
           this.dropFrame -= 1;
         }
       }
     }
   }
 
-  getBlankSpace(){
+  getBlankSpace() {
     let blank = "";
-    for(let i = 0; i < this.NO_SPACE.length; i++){
-      if (this.NO_SPACE.charAt(i) === '.'){
+    for (let i = 0; i < this.NO_SPACE.length; i++) {
+      if (this.NO_SPACE.charAt(i) === '.') {
         blank += ".";
-      }else{
+      } else {
         blank += " ";
       }
     }
     this.chars = blank + " ";
   }
 
-  display(){
+  display() {
     this.detectDrop();
     super.display();
   }

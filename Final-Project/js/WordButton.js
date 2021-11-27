@@ -16,16 +16,16 @@ class WordButton extends Word {
     this.disabled = disabled;
     this.clickable = true;
 
-    this.func = function(){
+    this.func = function() {
       openHpyerText(this.id);
     };
   }
 
   checkForMouse() {
-    if (checkForMouseOver(this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT) && !this.disabled) {
+    if (checkForMouseOver(this.globalX + this.width / 2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT) && !this.disabled) {
       //console.log("Hover");
       this.isHovered = true;
-      if (hoveredItem != this){
+      if (hoveredItem != this) {
         hoveredItem = this;
       }
 
@@ -48,22 +48,22 @@ class WordButton extends Word {
         this.mouseClicked = false;
       }
 
-      if (this.isHovered){
+      if (this.isHovered) {
         enlargeCursor = true;
-        if (!disableCursorAnimation){
-          wordButtonIsHovered(this, this.globalX + this.width/2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT/2, this.width);
+        if (!disableCursorAnimation) {
+          wordButtonIsHovered(this, this.globalX + this.width / 2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2, this.width);
         }
       }
 
     } else {
       this.isHovered = false;
 
-      if (hoveredItem === this){
+      if (hoveredItem === this) {
         enlargeCursor = false;
         hoveredItem = null;
       }
 
-      if (!mouseIsPressed && clickedItem === this){
+      if (!mouseIsPressed && clickedItem === this) {
         disableCursorAnimation = false;
         lastClickedItem = clickedItem;
         clickedItem = null;

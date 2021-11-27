@@ -1,5 +1,5 @@
 // a draggable object
-class WordDraggable extends WordButton{
+class WordDraggable extends WordButton {
   constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars, id, disabled);
 
@@ -13,19 +13,19 @@ class WordDraggable extends WordButton{
     this.id = id;
 
     this.chars = chars.replace(' ', '');
-    this.draggableChars = this.chars.replace('.','');
+    this.draggableChars = this.chars.replace('.', '');
 
     var thisBtn = this;
-    this.func = function(){
-      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ")/2 - textWidth(" ")/2;
-      draggableInstance.y = thisBtn.globalY + MAX_NOTE_SIZE/CHAR_HEIGHT/2;
+    this.func = function() {
+      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ") / 2 - textWidth(" ") / 2;
+      draggableInstance.y = thisBtn.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2;
       draggableInstance.originX = thisBtn.globalX;
       draggableInstance.originY = thisBtn.globalY;
       draggableInstance.offsetX = mouseX - draggableInstance.x;
       draggableInstance.offsetY = mouseY - draggableInstance.y;
-      if (thisBtn.chars.charAt(thisBtn.chars.length - 1) === '.'){
-        draggableInstance.chars = thisBtn.chars.replace('.','');
-      }else{
+      if (thisBtn.chars.charAt(thisBtn.chars.length - 1) === '.') {
+        draggableInstance.chars = thisBtn.chars.replace('.', '');
+      } else {
         draggableInstance.chars = thisBtn.chars;
       }
       draggableInstance.opacity = 255;
@@ -46,9 +46,9 @@ class WordDraggable extends WordButton{
   }
 
   display() {
-    if (clickedItem === this){
+    if (clickedItem === this) {
       this.opacity = 255 * 0.5;
-    }else{
+    } else {
       this.opacity = lerp(this.opacity, 255, 0.05);
     }
     super.display();
