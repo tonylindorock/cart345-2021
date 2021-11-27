@@ -8,7 +8,7 @@ author, and this description to match your project!
 
 ******************/
 const CHAR_WIDTH = 64;
-const CHAR_HEIGHT = 30;
+const CHAR_HEIGHT = 26;
 const FONT_SIZE = 16;
 
 const MAX_NOTE_SIZE = 720;
@@ -118,18 +118,6 @@ function preload() {
   ICON_FAIL = loadImage("assets/images/icon_fail.png");
 }
 
-function loadConfig(){
-  // current passage dictionary
-  let currentPassage = STORY["passages"][passageId];
-
-  let linkables = currentPassage["linkables"];
-  if (linkables != null){
-    if (Array.isArray(linkables)){
-      return linkables;
-    }
-  }
-}
-
 function setup() {
   createCanvas(windowWidth, TOP_MARGIN + MAX_NOTE_SIZE);
 
@@ -148,37 +136,11 @@ function loadStory() {
   STORY = loadJSON("data/story.json");
 }
 
-function updatePaper(){
-  charGrid = new Paper("#111", COLOR_WHITE);
-    // reset counter
-  interactableCounter.button = 0;
-  interactableCounter.linkable = 0;
-
-  lastClickedItem = null;
-  clickedItem = null;
-  hoveredItem = null;
-
-  charGrid.addLine(STORY["passages"][passageId]["text"]);
-}
-
-function openHpyerText(id){
-  // if has button id
-  if (id < STORY["passages"][passageId]["options"].length){
-    enlargeCursor = false;
-    // update passage
-    passageId = STORY["passages"][passageId]["options"][id];
-    updatePaper();
-  }else{
-    console.log("Options is fewer than the amount of buttons.");
-  }
-}
-
 function draw() {
-  background(0);
+  background("#262626");
   displayNoteEditor();
   displayAllVisibleLinks();
   lineEdit.display();
-
 
   if (clickedItem != null) {
     if (clickedItem instanceof WordLinkable) {
@@ -191,13 +153,12 @@ function draw() {
   feedbackSystem.display();
 }
 
-function updateWindowHeight(amount){
+function updateWindowHeight(amount) {
   resizeCanvas(windowWidth, windowHeight + amount);
 }
 
 // display note editor
 function displayNoteEditor() {
-  background(COLOR_BLACK);
   // text editor
   charGrid.display();
 }
@@ -240,7 +201,7 @@ function mouseWheel(event) {
 // if mouse moved
 function mouseMoved() {
   // if mouse is hidden, enlarge it
-  if (mouseScrolled === true){
+  if (mouseScrolled === true) {
     cursorSize = LARGER_CURSOR_SIZE * 2;
   }
   // make mouse appear
@@ -257,15 +218,15 @@ function showCursor() {
   rectMode(CENTER);
   ellipseMode(CENTER);
 
-  if (mouseScrolled){
+  if (mouseScrolled) {
     cursorOpacity = lerp(cursorOpacity, 0, 0.2);
-  }else{
+  } else {
     cursorOpacity = lerp(cursorOpacity, 150, 0.2);
   }
   if (mouseIsPressed) {
     fill(255, 255, 255, cursorOpacity);
   } else {
-    fill(255, 255, 255, cursorOpacity/1.875);
+    fill(255, 255, 255, cursorOpacity / 1.875);
   }
 
   if (enlargeCursor) {
@@ -317,15 +278,15 @@ function updateSelectedItem(type, id) {
   selectedItem.id = id;
 }
 
-function checkLink(l1, l2){
-  if (l1 === l2){
+function checkLink(l1, l2) {
+  if (l1 === l2) {
     return false;
   }
   // load link config
   let link = loadConfig();
-  for(let i = 0; i < link.length; i++){
+  for (let i = 0; i < link.length; i++) {
     // if array has both link id
-    if (link[i].includes(l1) && link[i].includes(l2)){
+    if (link[i].includes(l1) && link[i].includes(l2)) {
       console.log("Correct links");
       return true;
     }
@@ -343,13 +304,13 @@ function showLink() {
   pop();
 }
 
-function addVisibleLink(x1, y1, x2, y2){
+function addVisibleLink(x1, y1, x2, y2) {
   let line = new Line(x1, y1, x2, y2);
   linkContainer.push(line);
 }
 
-function displayAllVisibleLinks(){
-  for(let i = 0; i< linkContainer.length; i++){
+function displayAllVisibleLinks() {
+  for (let i = 0; i < linkContainer.length; i++) {
     linkContainer[i].display();
   }
 }
@@ -390,4 +351,47 @@ function showDraggable() {
     text(draggableInstance.chars, draggableInstance.x, draggableInstance.y);
   }
   pop();
+}
+
+function loadConfig() {
+  // current passage dictionary
+  let currentPassage = STORY["passages"][passageId];
+
+  let linkables = currentPassage["linkables"];
+  if (linkables != null) {
+    if (Array.isArray(linkables)) {
+      return linkables;
+    }
+  }
+}
+
+function updatePaper() {
+  charGrid = new Paper("#111", COLOR_WHITE); // reset paper
+  // reset counter
+  interactableCounter.button = 0;
+  interactableCounter.linkable = 0;
+  // reset mouse items
+  setTimeout(function(){
+    lastClickedItem = null;
+    clickedItem = null;
+    hoveredItem = null;
+  }, 200);
+
+  linkContainer = []; // remove links
+
+  charGrid.addLine(STORY["passages"][passageId]["text"]);
+
+  window.scrollTo(0, 0); // reset scroll
+}
+
+function openHpyerText(id) {
+  // if has button id
+  if (id < STORY["passages"][passageId]["options"].length) {
+    enlargeCursor = false;
+    // update passage
+    passageId = STORY["passages"][passageId]["options"][id];
+    updatePaper();
+  } else {
+    console.log("Options is fewer than the amount of buttons.");
+  }
 }

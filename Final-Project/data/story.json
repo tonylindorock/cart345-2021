@@ -9,16 +9,56 @@
   },
   {
     "id": 1,
-    "text": "THE NIGHT\n\n#Play \n\n#Tutorial",
-    "options": [2, 0],
+    "text": "THE OLD HOUSE\nWritten by Yichen Wang\n\n#Excerpt[1] \n#Excerpt[2] \n#Excerpt[3] \n#Excerpt[4] \n\n#Tutorial",
+    "options": [2, 7, 7, 7, 0],
     "draggables": [0],
     "droppables": [0],
     "linkables": null
   },
   {
     "id": 2,
-    "text": "",
-    "options": [0],
+    "text": "CHAPTER 1 - PROLOGUE (EXCERPT)\n\n#Lithia is sitting in her driver's seat, hands on the steering wheel. The road disappears under the slope in front of her. She glances at the left, where stands a #house. A field of grass with weeds and flowers is framed by the right car window.",
+    "options": [3, 4],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": null
+  },{
+    "id": 3,
+    "des": "Lithia",
+    "text": "Lithia, 24, an Engineering graduate from Rickenson University. Her #dad passed away 3 years ago. She and her #pop are selling the #house since it has been empty for more than two years.",
+    "options": [5, 6, 4],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": null
+  },{
+    "id": 4,
+    "des": "House",
+    "text": "The house is Lithia's childhood house. She grew up in there, the old house. But there's always a creepy vibe to it. Lithia knows it. She's never liked the house.\n\nShe got out of the house as soon as she could as she went to college and left her parents. But #something happened.",
+    "options": [5],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": null
+  },{
+    "id": 5,
+    "des": "Dad",
+    "text": "Lithia's dad got sick during her 1st of college.\n\n\"His mind was playing tricks on him. We had to send him to a special facility. For his own good... Right...\"\n\nAfter 2 years, it was all good. Her dad went back home until his condition became worse again.\n\nHe slit his arms.\n\nHe died.\n\nLithia persuded her #pop to move out of the house. She didn't have any intention to come back, but she had to. They're selling the house. It must be taken care of before going on the market.\n\nLithia steps out of the car. The #door gets closer.",
+    "options": [6, 1],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": null
+  },{
+    "id": 6,
+    "des": "Pop",
+    "text": "Lithia's pop, her second father. They were supposed to come together and empty the house. Her pop got busy at the last second and had to come some time later. Lithia came alone. And she must now leave the car and enter the house, even if she doesn't want to.\n\nLithia steps out of the car. The #door gets closer.",
+    "options": [1],
+    "draggables": [0],
+    "droppables": [0],
+    "linkables": null
+  },{
+    "id": 7,
+    "des": "Entering the house",
+    "text": "The door has aged. The paint peered. The colour faded. The knob rusted.",
+    "options": [7],
     "draggables": [0],
     "droppables": [0],
     "linkables": null

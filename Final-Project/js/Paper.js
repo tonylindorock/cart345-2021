@@ -146,7 +146,7 @@ class Paper {
     stroke(this.bgColor);
     strokeWeight(32);
 
-    rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
+    //rect(0, 0, this.MAX_SIZE, this.MAX_SIZE);
     // display characters
     noStroke();
     for (let i = 0; i < this.words.length; i++) {
