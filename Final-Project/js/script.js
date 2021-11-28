@@ -155,6 +155,19 @@ function draw() {
 
   showCursor();
   feedbackSystem.display();
+
+  // resolving mouse pressing triggering button event by moving over it
+  if (hoveredItem === null && clickedItem === null){
+    if (mouseIsPressed){
+      clickedItem = -1;
+    }else{
+      clickedItem = null;
+    }
+  }else{
+    if (clickedItem === -1 && !mouseIsPressed){
+      clickedItem = null;
+    }
+  }
 }
 
 function updateWindowHeight(amount) {

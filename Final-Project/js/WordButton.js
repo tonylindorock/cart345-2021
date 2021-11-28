@@ -25,6 +25,7 @@ class WordButton extends Word {
     if (checkForMouseOver(this.globalX + this.width / 2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2, this.width, MAX_NOTE_SIZE / CHAR_HEIGHT) && !this.disabled) {
       //console.log("Hover");
       this.isHovered = true;
+      
       if (hoveredItem != this) {
         hoveredItem = this;
       }
