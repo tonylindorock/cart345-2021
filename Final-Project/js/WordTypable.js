@@ -14,6 +14,7 @@ class WordTypable extends WordButton {
       lineEdit.show = !lineEdit.show;
       if (lineEdit.ANSWER != this.typableText) {
         lineEdit.show = true;
+        lineEdit.text = "";
       }
       lineEdit.ANSWER = this.typableText;
       lineEdit.CHAR_NUM = this.typableText.length;

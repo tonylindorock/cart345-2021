@@ -9,6 +9,8 @@ class WordLinkable extends WordButton {
 
     this.dropFrame = 0;
     this.dropPossible = false;
+
+    this.clickable = false;
   }
 
   // complete the link
