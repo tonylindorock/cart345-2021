@@ -50,6 +50,11 @@ class WordTypable extends WordButton {
     this.disabled = true;
     lineEdit.show = false;
     feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
+
+    let result = loadConfig(4);
+    if (result != null){
+      charGrid.addLine(result);
+    }
   }
 
   display() {

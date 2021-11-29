@@ -63,6 +63,7 @@ let ICON_FAIL;
 
 let interactableCounter = {
   button: 0,
+  droppable: 0,
   linkable: 0
 }
 
@@ -105,7 +106,7 @@ let cursorOffset = {
 let hoveringButton;
 
 let STORY;
-let passageId = 1;
+let passageId = 9;
 
 var charGrid;
 var lineEdit;
@@ -289,22 +290,19 @@ function wordButtonIsHovered(ref, x, y, width) {
   cursorHoverSize.targetWidth = width
 }
 
-// update dragged item
-function updateSelectedItem(type, id) {
-  selectedItem.type = type;
-  selectedItem.id = id;
-}
-
 function checkLink(l1, l2) {
   if (l1 === l2) {
     return false;
   }
   // load link config
-  let link = loadConfig();
+  let link = loadConfig(3);
   for (let i = 0; i < link.length; i++) {
     // if array has both link id
     if (link[i].includes(l1) && link[i].includes(l2)) {
       console.log("Correct links");
+      if (link[i].length === 3){
+        return link[i][2];
+      }
       return true;
     }
   }
@@ -370,16 +368,37 @@ function showDraggable() {
   pop();
 }
 
-function loadConfig() {
+function loadConfig(id) {
   // current passage dictionary
   let currentPassage = STORY["passages"][passageId];
-
-  let linkables = currentPassage["linkables"];
-  if (linkables != null) {
-    if (Array.isArray(linkables)) {
-      return linkables;
-    }
+  switch(id){
+    case 0:
+      break;
+    case 1:
+      break;
+    case 2:
+      let droppables = currentPassage["droppables"];
+      if (droppables != null) {
+        if (Array.isArray(droppables)) {
+          return droppables;
+        }
+      }
+      break;
+    case 3:
+      let linkables = currentPassage["linkables"];
+      if (linkables != null) {
+        if (Array.isArray(linkables)) {
+          return linkables;
+        }
+      }
+      break;
+    case 4:
+      let typable = currentPassage["typable"];
+      if (typable != null) {
+        return typable;
+      }
   }
+  return null;
 }
 
 function updatePaper() {

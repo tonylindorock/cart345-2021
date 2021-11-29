@@ -12,21 +12,21 @@ class WordDraggable extends WordButton {
 
     this.id = id;
 
-    this.chars = chars.replace(' ', '');
-    this.draggableChars = this.chars.replace('.', '');
+    this.draggableChars = this.chars.replace(/[^A-Z0-9]+/ig, '');
 
     var thisBtn = this;
     this.func = function() {
-      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ") / 2 - textWidth(" ") / 2;
+      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ") / 2 - textWidth(" ")/2;
       draggableInstance.y = thisBtn.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2;
       draggableInstance.originX = thisBtn.globalX;
       draggableInstance.originY = thisBtn.globalY;
       draggableInstance.offsetX = mouseX - draggableInstance.x;
       draggableInstance.offsetY = mouseY - draggableInstance.y;
-      if (thisBtn.chars.charAt(thisBtn.chars.length - 1) === '.') {
-        draggableInstance.chars = thisBtn.chars.replace('.', '');
+      let chars = thisBtn.chars.replace(' ', '');
+      if (chars.endsWith('.')) {
+        draggableInstance.chars = chars.replace('.', '');
       } else {
-        draggableInstance.chars = thisBtn.chars;
+        draggableInstance.chars = chars;
       }
       draggableInstance.opacity = 255;
     }

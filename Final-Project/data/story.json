@@ -1,67 +1,58 @@
 {
   "passages": [{
     "id": 0,
-    "text": "Interactivity Examples:\n\nCLICK:\nI'm a #button. Click it to interact.\n\nDRAG & DROP:\nDrag it to a blank space to make sense.\nI have a glass of #>water. I can see my plant is dying. Maybe I should #<water it.\n\nLINK:\nDrag one to link it to another to create a new outcome.\nThe door is strong. I need something powerful to brust it open. A box of #^matches is in my pocket. A #^dynamite sits near my feet.\n\nTYPE:\nComplete the word with missing characters.\n\"A tropical fruit that is yellow? With a pit?\" What else can it be? A #:mango ?\n\n#Back",
+    "text": "Interactivity Examples:\n\nCLICK:\nI'm a #button. Click it to reset the page.\n\nDRAG & DROP:\nDrag it to a blank space to make sense.\nI have a glass of #>water. I can see my plant is dying. Maybe I should #<water it.\n\nLINK:\nDrag one to link it to another to create a new outcome.\nThe door is strong. I need something powerful to brust it open. A box of #^matches is in my pocket. A #^dynamite sits near my feet.\n\nTYPE:\nComplete the word with missing characters.\n\"A tropical fruit that is yellow? With a pit?\" What else can it be? A #:mango ?\n\n#Back",
     "options": [0, 1],
-    "draggables": [0],
-    "droppables": [0],
     "linkables": [[0,1]]
   },
   {
     "id": 1,
     "text": "THE OLD HOUSE\nWritten by Yichen Wang\n\n#Excerpt[1] \n#Excerpt[2] \n#Excerpt[3] \n#Excerpt[4] \n\n#Tutorial",
-    "options": [2, 7, 7, 7, 0],
-    "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "options": [2, 7, 8, 9, 0]
   },
   {
     "id": 2,
     "text": "CHAPTER 1 - PROLOGUE (EXCERPT)\n\n#Lithia is sitting in her driver's seat, hands on the steering wheel. The road disappears under the slope in front of her. She glances at the left, where stands a #house. A field of grass with weeds and flowers is framed by the right car window.",
-    "options": [3, 4],
-    "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "options": [3, 4]
   },{
     "id": 3,
     "des": "Lithia",
     "text": "Lithia, 24, an Engineering graduate from Rickenson University. Her #dad passed away 3 years ago. She and her #pop are selling the #house since it has been empty for more than two years.",
-    "options": [5, 6, 4],
-    "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "options": [5, 6, 4]
   },{
     "id": 4,
     "des": "House",
     "text": "The house is Lithia's childhood house. She grew up in there, the old house. But there's always a creepy vibe to it. Lithia knows it. She's never liked the house.\n\nShe got out of the house as soon as she could as she went to college and left her parents. But #something happened.",
-    "options": [5],
-    "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "options": [5]
   },{
     "id": 5,
     "des": "Dad",
     "text": "Lithia's dad got sick during her 1st of college.\n\n\"His mind was playing tricks on him. We had to send him to a special facility. For his own good... Right...\"\n\nAfter 2 years, it was all good. Her dad went back home until his condition became worse again.\n\nHe slit his arms.\n\nHe died.\n\nLithia persuded her #pop to move out of the house. She didn't have any intention to come back, but she had to. They're selling the house. It must be taken care of before going on the market.\n\nLithia steps out of the car. The #door gets closer.",
-    "options": [6, 1],
-    "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "options": [6, 1]
   },{
     "id": 6,
     "des": "Pop",
     "text": "Lithia's pop, her second father. They were supposed to come together and empty the house. Her pop got busy at the last second and had to come some time later. Lithia came alone. And she must now leave the car and enter the house, even if she doesn't want to.\n\nLithia steps out of the car. The #door gets closer.",
-    "options": [1],
-    "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "options": [1]
   },{
     "id": 7,
     "des": "Entering the house",
-    "text": "The door has aged. The paint peered. The colour faded. The knob rusted.",
-    "options": [7],
+    "text": "CHAPTER 2 - FEELS LIKE YESTERDAY (EXCERPT)\n\nThe backup generator sits quietly in the corner. It needs a boost before running. \"But it's missing a #>crank ... Ah, found it!\"\n\nLithia #<crank (s) the generator, and it starts roaring and begins to power the house.",
+    "options": [1],
     "draggables": [0],
-    "droppables": [0],
-    "linkables": null
+    "droppables": ["\n\nLithia heads #out of the basement."]
+  },{
+    "id": 8,
+    "des": "Entering the house",
+    "text": "CHAPTER X - THE LAST MINUTE (EXCERPT)\n\n\"I need a weapon.\"\n\nLithia looks at the drawer and finds two #^bullets. She then uses the combination to open the safe, revealing a #^revolver.",
+    "options": [1],
+    "linkables": [[0, 1, "\n\nLithia loads the gun and heads #out of the room."]]
+  },{
+    "id": 9,
+    "des": "Entering the house",
+    "text": "CHAPTER 2 - JUST LIKE YESTERDAY (EXCERPT)\n\n\"Hi, Lithia.\"\n\n\"Hey, Kyle. I'm at the old house right now.\"\n\n\"Are you--Are you busy?\"\n\n\"Eh, it's a lot of work. Pop won't be here until Monday. So I guess? But what's up?\"\n\n\"I'm--I'm not sure if I want to do this on the phone but... I just can't wait.\"\n\n\"What do you mean?\"\n\n\"We--we need to break up. Sorry... Lithia. Goodbye.\"\n\n\"What? Are you serious? Kyle? Kyle?! Fucking piece of a--\" Lithia slams her phone on the kitchen countertop.\n\n\"I just can't wait... Fucking #:asshole .\"",
+    "options": [1],
+    "typable": "\n\nLithia runs #out of the house."
   }
   ]
 }

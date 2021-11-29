@@ -26,9 +26,13 @@ class WordLinkable extends WordButton {
     }
     if (this.dropFrame === 1 & this != lastClickedItem) {
       if (this.isHovered && lastClickedItem instanceof WordLinkable && !mouseIsPressed) {
-        if (checkLink(this.id, lastClickedItem.id)) {
+        let result = checkLink(this.id, lastClickedItem.id);
+        if (result === true) {
           this.complete();
-        } else {
+        }else if (typeof result === 'string') {
+          this.complete();
+          charGrid.addLine(result);
+        } else if (result === false) {
           feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 1);
           console.log("Wrong linkable");
         }

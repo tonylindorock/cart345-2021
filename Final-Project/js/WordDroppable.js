@@ -21,6 +21,11 @@ class WordDroppable extends WordButton {
     this.chars = this.ORIGINAL_TEXT;
     this.disabled = true;
     feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
+
+    let config = loadConfig(2);
+    if (config != null){
+      charGrid.addLine(config[this.id]);
+    }
   }
 
   detectDrop() {

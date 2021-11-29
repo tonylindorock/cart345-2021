@@ -64,7 +64,8 @@ class Paper {
         case "<":
           word = word.replace('#<', '');
           console.log("Add a droppable");
-          newWord = new WordDroppable(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, 0);
+          newWord = new WordDroppable(x, this.pointerPosY * MAX_NOTE_SIZE / CHAR_HEIGHT, word, interactableCounter.droppable);
+          interactableCounter.droppable++;
           break;
           // linkable
         case "^":

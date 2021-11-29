@@ -5,7 +5,7 @@ class LineEditWindow {
     this.width = (windowWidth - MAX_NOTE_SIZE) / 2.25;
     this.height = 128;
 
-    this.x = windowWidth / 2 + this.width / 2;
+    this.x = windowWidth - MARGIN;
     this.y = windowHeight - MARGIN;
 
     this.show = false;
