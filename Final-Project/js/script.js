@@ -106,7 +106,7 @@ let cursorOffset = {
 let hoveringButton;
 
 let STORY;
-let passageId = 9;
+let passageId = 1;
 
 var charGrid;
 var lineEdit;
@@ -379,9 +379,7 @@ function loadConfig(id) {
     case 2:
       let droppables = currentPassage["droppables"];
       if (droppables != null) {
-        if (Array.isArray(droppables)) {
-          return droppables;
-        }
+        return droppables;
       }
       break;
     case 3:

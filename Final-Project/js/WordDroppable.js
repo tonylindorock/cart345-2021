@@ -24,7 +24,7 @@ class WordDroppable extends WordButton {
 
     let config = loadConfig(2);
     if (config != null){
-      charGrid.addLine(config[this.id]);
+      charGrid.addLine(config);
     }
   }
 

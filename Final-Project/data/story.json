@@ -40,7 +40,7 @@
     "text": "CHAPTER 2 - FEELS LIKE YESTERDAY (EXCERPT)\n\nThe backup generator sits quietly in the corner. It needs a boost before running. \"But it's missing a #>crank ... Ah, found it!\"\n\nLithia #<crank (s) the generator, and it starts roaring and begins to power the house.",
     "options": [1],
     "draggables": [0],
-    "droppables": ["\n\nLithia heads #out of the basement."]
+    "droppables": "\n\nLithia heads #out of the basement."
   },{
     "id": 8,
     "des": "Entering the house",
