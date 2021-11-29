@@ -7,8 +7,8 @@
   },
   {
     "id": 1,
-    "text": "THE OLD HOUSE\nWritten by Yichen Wang\n\n#Excerpt[1] \n#Excerpt[2] \n#Excerpt[3] \n#Excerpt[4] \n\n#Tutorial",
-    "options": [2, 7, 8, 9, 0]
+    "text": "THE OLD HOUSE\nWritten by Yichen Wang\n\n#Excerpt[1] \n#Excerpt[2] \n#Excerpt[3] \n#Excerpt[4] \n\n#Excerpt[5] \n#Excerpt[6] \n\n#Tutorial",
+    "options": [2, 7, 8, 9, 10, 11, 0]
   },
   {
     "id": 2,
@@ -53,6 +53,19 @@
     "text": "CHAPTER 2 - JUST LIKE YESTERDAY (EXCERPT)\n\n\"Hi, Lithia.\"\n\n\"Hey, Kyle. I'm at the old house right now.\"\n\n\"Are you--Are you busy?\"\n\n\"Eh, it's a lot of work. Pop won't be here until Monday. So I guess? But what's up?\"\n\n\"I'm--I'm not sure if I want to do this on the phone but... I just can't wait.\"\n\n\"What do you mean?\"\n\n\"We--we need to break up. Sorry... Lithia. Goodbye.\"\n\n\"What? Are you serious? Kyle? Kyle?! Fucking piece of a--\" Lithia slams her phone on the kitchen countertop.\n\n\"I just can't wait... Fucking #:asshole .\"",
     "options": [1],
     "typable": "\n\nLithia runs #out of the house."
+  },{
+    "id": 10,
+    "des": "Dark",
+    "light": false,
+    "text": "It's dark, but Lithia has a flashlight.\n\nShe is able to illuminate just a tiny bit of the dark space, barely enough to see where the bed is.\n\n\"This is like watching a horror movie. Or playing a horror game.\"\n\nLithia feels like she touches #something on the floor.",
+    "options": [1]
+  }
+  ,{
+    "id": 11,
+    "des": "Dark",
+    "rotation": true,
+    "text": "Lithia feels a little bit dizzy. That could be an understatement.\n\n\"I'm sure I'm finnnnnnneee... Why did dad kill himself? It's because of the hoouuuuse. This fucking housssse!\"\n\nLithia closes her eyes and drops onto the #floor.",
+    "options": [1]
   }
   ]
 }

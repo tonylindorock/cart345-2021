@@ -81,6 +81,9 @@ let draggableInstance = {
   chars: ""
 }
 
+let lightOff = false;
+let rotateEnabled = false;
+
 let mouseScrolled = false;
 let scrollTimer = null;
 
@@ -98,15 +101,17 @@ let cursorHoverSize = {
   targetWidth: 0
 };
 let cursorOffset = {
+  rotate: 0,
   x: 0,
   y: 0,
   targetX: 0,
-  targetY: 0
+  targetY: 0,
+  targetRotate: 0
 }
 let hoveringButton;
 
 let STORY;
-let passageId = 1;
+let passageId = 11;
 
 var charGrid;
 var lineEdit;
@@ -412,6 +417,18 @@ function updatePaper() {
   }, 200);
 
   linkContainer = []; // remove links
+
+  if (STORY["passages"][passageId]["light"] != null && STORY["passages"][passageId]["light"] === false){
+    lightOff = true;
+  }else{
+    lightOff = false;
+  }
+
+  if (STORY["passages"][passageId]["rotation"] != null && STORY["passages"][passageId]["rotation"] === true){
+    rotateEnabled = true;
+  }else{
+    rotateEnabled = false;
+  }
 
   charGrid.addLine(STORY["passages"][passageId]["text"]);
 

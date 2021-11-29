@@ -92,7 +92,12 @@ class Paper {
     }
     // update
     this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
-    this.words[this.pointerPosY].push(newWord);
+    if (rotateEnabled){
+      newWord.setupRotation(-10, 10);
+      this.words[this.pointerPosY].push(newWord);
+    }else{
+      this.words[this.pointerPosY].push(newWord);
+    }
   }
 
   // go to the next line

@@ -8,6 +8,7 @@ class Word {
     this.rgb = [255, 255, 255];
 
     this.opacity = 255;
+    this.rotation = 0;
 
     this.underlineColor = COLOR_WHITE;
     this.highlightColor = HIGHLIGHT_COLORS[0];
@@ -39,6 +40,14 @@ class Word {
     this.underlineWidth = this.width;
   }
 
+  setupRotation(v1 ,v2 = 0){
+    if (v2 <= v1){
+      this.rotation = v1;
+    }else{
+      this.rotation = random(v1, v2);
+    }
+  }
+
   calculateGlobalPos() {
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
     this.globalY = this.posY + TOP_MARGIN;
@@ -58,12 +67,14 @@ class Word {
   }
 
   display() {
-    if (!this.isLightSource) {
-      //this.distToMouse();
+    if (!this.isLightSource && lightOff) {
+      this.distToMouse();
     }
 
     push();
     translate(this.posX, this.posY);
+    angleMode(DEGREES);
+    rotate(this.rotation);
     rectMode(CORNER);
 
     if (this.chars === "") {
