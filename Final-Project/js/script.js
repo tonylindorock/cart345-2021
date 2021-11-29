@@ -1,10 +1,11 @@
 /*****************
 
+An Interactive Puzzle Fiction
 The Old House
 Yichen Wang
 CART 345
 
-The Old House is a demo for a more interactive interactive fiction.
+The Old House is a demo for an Interactive Puzzle Fiction.
 It features clicking, drag-and-dropping, linking, and typing as
 its 4 main interactive methods.
 The cursor also serves as a more interesting device that adopts
@@ -49,8 +50,6 @@ const COLOR_BLUE = "#4bafff";
 const COLOR_BLUE_PASTEL = "#a6c0ed";
 const COLOR_PURPLE = "#c073ff";
 const COLOR_PURPLE_PASTEL = "#eba0e1";
-
-const HIGHLIGHT_COLORS = ["#ffff0080", "#ff800080", "#00ff0080", "#0080ff80", "#ff00ff80"];
 
 const LIGHT_RADIUS = 80;
 
@@ -163,14 +162,14 @@ function draw() {
   feedbackSystem.display();
 
   // resolving mouse pressing triggering button event by moving over it
-  if (hoveredItem === null && clickedItem === null){
-    if (mouseIsPressed){
+  if (hoveredItem === null && clickedItem === null) {
+    if (mouseIsPressed) {
       clickedItem = -1;
-    }else{
+    } else {
       clickedItem = null;
     }
-  }else{
-    if (clickedItem === -1 && !mouseIsPressed){
+  } else {
+    if (clickedItem === -1 && !mouseIsPressed) {
       clickedItem = null;
     }
   }
@@ -305,7 +304,7 @@ function checkLink(l1, l2) {
     // if array has both link id
     if (link[i].includes(l1) && link[i].includes(l2)) {
       console.log("Correct links");
-      if (link[i].length === 3){
+      if (link[i].length === 3) {
         return link[i][2];
       }
       return true;
@@ -376,7 +375,7 @@ function showDraggable() {
 function loadConfig(id) {
   // current passage dictionary
   let currentPassage = STORY["passages"][passageId];
-  switch(id){
+  switch (id) {
     case 0:
       break;
     case 1:
@@ -410,7 +409,7 @@ function updatePaper() {
   interactableCounter.button = 0;
   interactableCounter.linkable = 0;
   // reset mouse items
-  setTimeout(function(){
+  setTimeout(function() {
     lastClickedItem = null;
     clickedItem = null;
     hoveredItem = null;
@@ -418,15 +417,15 @@ function updatePaper() {
 
   linkContainer = []; // remove links
 
-  if (STORY["passages"][passageId]["light"] != null && STORY["passages"][passageId]["light"] === false){
+  if (STORY["passages"][passageId]["light"] != null && STORY["passages"][passageId]["light"] === false) {
     lightOff = true;
-  }else{
+  } else {
     lightOff = false;
   }
 
-  if (STORY["passages"][passageId]["rotation"] != null && STORY["passages"][passageId]["rotation"] === true){
+  if (STORY["passages"][passageId]["rotation"] != null && STORY["passages"][passageId]["rotation"] === true) {
     rotateEnabled = true;
-  }else{
+  } else {
     rotateEnabled = false;
   }
 

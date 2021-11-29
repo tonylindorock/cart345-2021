@@ -1,4 +1,4 @@
-// a draggable object
+// a draggable word
 class WordDraggable extends WordButton {
   constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars, id, disabled);
@@ -16,7 +16,8 @@ class WordDraggable extends WordButton {
 
     var thisBtn = this;
     this.func = function() {
-      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ") / 2 - textWidth(" ")/2;
+      // create a draggable instance
+      draggableInstance.x = thisBtn.globalX + textWidth(this.chars + " ") / 2 - textWidth(" ") / 2;
       draggableInstance.y = thisBtn.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2;
       draggableInstance.originX = thisBtn.globalX;
       draggableInstance.originY = thisBtn.globalY;

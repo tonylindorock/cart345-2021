@@ -1,4 +1,4 @@
-// Word obj for display a single word
+// Word class for display a single word
 class Word {
   constructor(x, y, chars) {
     this.chars = chars;
@@ -42,10 +42,11 @@ class Word {
     this.underlineWidth = this.width;
   }
 
-  setupRotation(v1 ,v2 = 0){
-    if (v2 <= v1){
+  // decide a rotation value
+  setupRotation(v1, v2 = 0) {
+    if (v2 <= v1) {
       this.rotation = v1;
-    }else{
+    } else {
       this.rotation = random(v1, v2);
     }
   }
@@ -56,18 +57,23 @@ class Word {
   }
 
   distToMouse() {
-    if (!this.isLightSource && lightOff){
+    // if light is off and this word doesn't light up
+    if (!this.isLightSource && lightOff) {
+      // opacity increases if mouse is closer
       this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS, 32, 0, 255);
-    }else if(this.rotation !== 0){
-      if (this.rotation > 0){
-        this.offsetRotation = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS*1.5, 48, 0, -this.rotation);
-      }else if (this.rotation < 0){
-        this.offsetRotation = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS*1.5, 48, 0, -this.rotation);
+    // if has rotation enabled
+    } else if (this.rotation !== 0) {
+      // rotation restores if mouse is closer
+      if (this.rotation > 0) {
+        this.offsetRotation = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS * 1.5, 48, 0, -this.rotation);
+      } else if (this.rotation < 0) {
+        this.offsetRotation = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS * 1.5, 48, 0, -this.rotation);
       }
-      if (this.rotation < 0){
-        this.offsetRotation = constrain(this.offsetRotation,this.rotation,-this.rotation);
-      }else{
-        this.offsetRotation = constrain(this.offsetRotation,-this.rotation,this.rotation);
+      // cap the rotation offset so that it won't change once the mouse is too far
+      if (this.rotation < 0) {
+        this.offsetRotation = constrain(this.offsetRotation, this.rotation, -this.rotation);
+      } else {
+        this.offsetRotation = constrain(this.offsetRotation, -this.rotation, this.rotation);
       }
     }
   }

@@ -1,3 +1,4 @@
+// a word with missing letters
 class WordTypable extends WordButton {
   constructor(x, y, chars, disabled = false) {
     super(x, y, chars, -1, disabled);
@@ -8,6 +9,7 @@ class WordTypable extends WordButton {
     this.typableText = this.ORIGINAL_TEXT;
     this.randomizeDisplayText();
 
+    // click event
     this.func = function() {
       lineEdit.show = !lineEdit.show;
       if (lineEdit.ANSWER != this.typableText) {
@@ -45,6 +47,7 @@ class WordTypable extends WordButton {
     }
   }
 
+  // reveal the word
   complete() {
     this.chars = this.ORIGINAL_TEXT;
     this.disabled = true;
@@ -52,7 +55,7 @@ class WordTypable extends WordButton {
     feedbackSystem.showFeedback(this.globalXCenter, this.globalY, 0);
 
     let result = loadConfig(4);
-    if (result != null){
+    if (result != null) {
       charGrid.addLine(result);
     }
   }

@@ -23,6 +23,7 @@ class Notification {
     this.timer = null;
   }
 
+  // display the feeback at a position (x , y) and the type of the feeback
   showFeedback(x, y, id) {
     this.id = id;
     this.x = x;
@@ -34,9 +35,10 @@ class Notification {
     this.show = true;
   }
 
+  // start timer for display duration
   startTimer() {
     var obj = this;
-    this.timer = setInterval(function() {
+    this.timer = setTimeout(function() {
       obj.show = false;
       obj.endTimer();
     }, 1500);
@@ -52,6 +54,7 @@ class Notification {
     if (this.show) {
       this.size = lerp(this.size, this.width, 0.25);
       this.opacity = 255;
+
       if (this.timer === null) {
         this.startTimer();
       }

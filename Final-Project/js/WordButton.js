@@ -1,3 +1,4 @@
+// a word class can be triggered as a button
 class WordButton extends Word {
   constructor(x, y, chars, id, disabled = false) {
     super(x, y, chars);
@@ -19,7 +20,7 @@ class WordButton extends Word {
     this.clickable = true;
 
     this.func = function() {
-      openHpyerText(this.id);
+      openHpyerText(this.id); // head to next page
     };
   }
 
@@ -53,6 +54,7 @@ class WordButton extends Word {
 
       if (this.isHovered) {
         enlargeCursor = true;
+        // send size to cursor
         if (!disableCursorAnimation) {
           wordButtonIsHovered(this, this.globalX + this.width / 2, this.globalY + MAX_NOTE_SIZE / CHAR_HEIGHT / 2, this.width);
         }

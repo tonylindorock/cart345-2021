@@ -92,10 +92,11 @@ class Paper {
     }
     // update
     this.lines[this.pointerPosY] = this.lines[this.pointerPosY] + word;
-    if (rotateEnabled){
+    // if the rotation is enabled, set up rotation
+    if (rotateEnabled) {
       newWord.setupRotation(-10, 10);
       this.words[this.pointerPosY].push(newWord);
-    }else{
+    } else {
       this.words[this.pointerPosY].push(newWord);
     }
   }
@@ -113,6 +114,7 @@ class Paper {
     }
   }
 
+  // add one or multiple lines in a single string
   addLine(line) {
     let words = line.split(" ");
     let nextWord = "";

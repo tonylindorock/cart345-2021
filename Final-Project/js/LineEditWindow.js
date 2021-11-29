@@ -1,3 +1,4 @@
+// A line edit class for typing a word
 class LineEditWindow {
   constructor() {
     this.offsetX = 0;
@@ -18,16 +19,19 @@ class LineEditWindow {
     this.CHAR_NUM = 0;
   }
 
+  // update the word
   updateText(char) {
     if (this.canType) {
       this.text += char.toLowerCase();
     }
   }
 
+  // remove the last character
   removeLastChar() {
     this.text = this.text.substring(0, this.text.length - 1);
   }
 
+  // check if the word is correct
   verify() {
     if (this.text === this.ANSWER) {
       if (lastClickedItem instanceof WordTypable) {
@@ -42,6 +46,7 @@ class LineEditWindow {
 
   display() {
     push();
+    // animation
     if (this.show) {
       this.offsetX = lerp(this.offsetX, 0, this.animSpeed);
       this.offsetY = lerp(this.offsetY, 0, this.animSpeed);
@@ -56,14 +61,14 @@ class LineEditWindow {
     fill(COLOR_WHITE);
     rect(-this.width / 2, -this.height / 2, this.width, this.height, 16);
     fill(COLOR_BLACK);
+    // if the character count is filled, no more typing
     let charLeft = this.CHAR_NUM - this.text.length;
-
     if (charLeft <= 0) {
       this.canType = false;
     } else {
       this.canType = true;
     }
-
+    // character left
     if (charLeft <= 1) {
       text(charLeft + " character left", -this.width / 2, -this.height / 2 - 32);
     } else {
