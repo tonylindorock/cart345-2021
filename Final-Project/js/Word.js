@@ -13,7 +13,6 @@ class Word {
     this.offsetRotation = 0;
 
     this.underlineColor = COLOR_WHITE;
-    this.highlightColor = HIGHLIGHT_COLORS[0];
 
     this.originX = x;
     this.originY = y;
