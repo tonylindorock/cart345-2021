@@ -8,7 +8,9 @@ class Word {
     this.rgb = [255, 255, 255];
 
     this.opacity = 255;
+
     this.rotation = 0;
+    this.offsetRotation = 0;
 
     this.underlineColor = COLOR_WHITE;
     this.highlightColor = HIGHLIGHT_COLORS[0];
@@ -54,7 +56,20 @@ class Word {
   }
 
   distToMouse() {
-    this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS, 32, 0, 255);
+    if (!this.isLightSource && lightOff){
+      this.opacity = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS, 32, 0, 255);
+    }else if(this.rotation !== 0){
+      if (this.rotation > 0){
+        this.offsetRotation = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS*1.5, 48, 0, -this.rotation);
+      }else if (this.rotation < 0){
+        this.offsetRotation = map(dist(this.globalX, this.globalY, mouseX, mouseY), FLASH_RADIUS*1.5, 48, 0, -this.rotation);
+      }
+      if (this.rotation < 0){
+        this.offsetRotation = constrain(this.offsetRotation,this.rotation,-this.rotation);
+      }else{
+        this.offsetRotation = constrain(this.offsetRotation,-this.rotation,this.rotation);
+      }
+    }
   }
 
   isNearLight() {
@@ -67,14 +82,12 @@ class Word {
   }
 
   display() {
-    if (!this.isLightSource && lightOff) {
-      this.distToMouse();
-    }
+    this.distToMouse();
 
     push();
     translate(this.posX, this.posY);
     angleMode(DEGREES);
-    rotate(this.rotation);
+    rotate(this.rotation + this.offsetRotation);
     rectMode(CORNER);
 
     if (this.chars === "") {

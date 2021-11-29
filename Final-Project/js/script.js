@@ -111,7 +111,7 @@ let cursorOffset = {
 let hoveringButton;
 
 let STORY;
-let passageId = 11;
+let passageId = 1;
 
 var charGrid;
 var lineEdit;
