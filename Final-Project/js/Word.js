@@ -50,6 +50,7 @@ class Word {
     }
   }
 
+  // get the position of the left upper corner of the text box
   calculateGlobalPos() {
     this.globalX = this.posX + windowWidth / 2 - MAX_NOTE_SIZE / 2;
     this.globalY = this.posY + TOP_MARGIN;

@@ -57,6 +57,8 @@ const FLASH_RADIUS = 160;
 const DEFAULT_CURSOR_SIZE = 16;
 const LARGER_CURSOR_SIZE = 24;
 
+// **************** IMAGES ****************
+// icons from icons8 app
 let ICON_SUCCESS;
 let ICON_FAIL;
 
@@ -65,7 +67,7 @@ let interactableCounter = {
   droppable: 0,
   linkable: 0
 }
-
+// a copy of a draggable
 let draggableInstance = {
   offsetX: 0,
   offsetY: 0,
@@ -86,10 +88,13 @@ let rotateEnabled = false;
 let mouseScrolled = false;
 let scrollTimer = null;
 
+// mouse event
 let lastClickedItem = null;
 let clickedItem = null;
 let hoveredItem = null;
+let hoveringButton;
 
+// cursor
 let cursorOpacity = 150;
 let disableCursorAnimation = false;
 let cursorSize = DEFAULT_CURSOR_SIZE;
@@ -107,7 +112,6 @@ let cursorOffset = {
   targetY: 0,
   targetRotate: 0
 }
-let hoveringButton;
 
 let STORY;
 let passageId = 1;
@@ -116,7 +120,7 @@ var charGrid;
 var lineEdit;
 var feedbackSystem;
 
-let linkContainer = [];
+let linkContainer = []; // for storing links
 
 let isTyping = false;
 
@@ -141,6 +145,7 @@ function setup() {
   noCursor();
 }
 
+// load the json file
 function loadStory() {
   STORY = loadJSON("data/story.json");
 }
@@ -149,16 +154,20 @@ function draw() {
   background("#262626");
   displayNoteEditor();
   displayAllVisibleLinks();
+
   lineEdit.display();
 
+  // if player is linking
   if (clickedItem != null) {
     if (clickedItem instanceof WordLinkable) {
       showLink();
     }
   }
+
   showDraggable();
 
   showCursor();
+
   feedbackSystem.display();
 
   // resolving mouse pressing triggering button event by moving over it
@@ -175,6 +184,7 @@ function draw() {
   }
 }
 
+// increase the window height with a given amount
 function updateWindowHeight(amount) {
   resizeCanvas(windowWidth, windowHeight + amount);
 }
@@ -239,18 +249,19 @@ function showCursor() {
   translate(mouseX + cursorOffset.x, mouseY + cursorOffset.y);
   rectMode(CENTER);
   ellipseMode(CENTER);
-
+  // if player scrolls, fade the cursor
   if (mouseScrolled) {
     cursorOpacity = lerp(cursorOpacity, 0, 0.2);
   } else {
     cursorOpacity = lerp(cursorOpacity, 150, 0.2);
   }
+  // if player clicks, make cursor less transparent
   if (mouseIsPressed) {
     fill(255, 255, 255, cursorOpacity);
   } else {
     fill(255, 255, 255, cursorOpacity / 1.875);
   }
-
+  // if the cursor is hovering on an interactive element
   if (enlargeCursor) {
     cursorSize = lerp(cursorSize, LARGER_CURSOR_SIZE, 0.2);
     cursorHoverSize.w = lerp(cursorHoverSize.w, cursorHoverSize.targetWidth, 0.3);
@@ -272,6 +283,7 @@ function showCursor() {
       rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
     }
   } else {
+    // reset everything
     cursorSize = lerp(cursorSize, DEFAULT_CURSOR_SIZE, 0.2);
     cursorHoverSize.w = lerp(cursorHoverSize.w, 0, 0.3);
     cursorHoverSize.h = lerp(cursorHoverSize.h, 0, 0.3);
@@ -280,6 +292,7 @@ function showCursor() {
     cursorOffset.targetX = 0;
     cursorOffset.targetY = 0;
     cursorHoverSize.targetWidth = 0;
+
     noStroke();
     rect(0, 0, cursorHoverSize.w, cursorHoverSize.h, 8);
     ellipse(0, 0, cursorSize);
@@ -287,6 +300,7 @@ function showCursor() {
   pop();
 }
 
+// set the hovering button and send its size to cursor
 function wordButtonIsHovered(ref, x, y, width) {
   hoveringButton = ref;
   cursorOffset.targetX = (x - mouseX);
@@ -294,6 +308,7 @@ function wordButtonIsHovered(ref, x, y, width) {
   cursorHoverSize.targetWidth = width
 }
 
+// check if two linkable words can be linked
 function checkLink(l1, l2) {
   if (l1 === l2) {
     return false;
@@ -314,6 +329,7 @@ function checkLink(l1, l2) {
   return false;
 }
 
+// show links on a page when player is linking
 function showLink() {
   push();
   stroke(255, 255, 255, 150);
@@ -323,17 +339,20 @@ function showLink() {
   pop();
 }
 
+// add a link to the array
 function addVisibleLink(x1, y1, x2, y2) {
   let line = new Line(x1, y1, x2, y2);
   linkContainer.push(line);
 }
 
+// display all the links in the array
 function displayAllVisibleLinks() {
   for (let i = 0; i < linkContainer.length; i++) {
     linkContainer[i].display();
   }
 }
 
+// display the draggable when player is dragging one
 function showDraggable() {
   push();
   textAlign(CENTER, CENTER);
@@ -342,16 +361,18 @@ function showDraggable() {
   //fill(COLOR_BLACK);
   //rect(mouseX, mouseY, clickedItem.width, MAX_NOTE_SIZE/CHAR_HEIGHT, 8);
   fill(COLOR_GREEN);
+  // if player clicks on a draggable
   if (clickedItem != null && clickedItem instanceof WordDraggable) {
     let x = mouseX - draggableInstance.offsetX;
     let y = mouseY - draggableInstance.offsetY;
-
+    // display a copy of the draggable
     text(draggableInstance.chars, x, y);
     // remember cursor position
     draggableInstance.x = x;
     draggableInstance.y = y;
     draggableInstance.dropX = x;
     draggableInstance.dropY = y;
+    // if player drops a draggable
   } else if (lastClickedItem != null && lastClickedItem instanceof WordDraggable) {
     let s = draggableInstance.speed;
     let orgX = draggableInstance.originX + textWidth(draggableInstance.chars + " ") / 2;
@@ -372,20 +393,26 @@ function showDraggable() {
   pop();
 }
 
+// load config for a given id
+// decides the outcome of an interaction
 function loadConfig(id) {
   // current passage dictionary
   let currentPassage = STORY["passages"][passageId];
   switch (id) {
+    // buttons, not needed
     case 0:
       break;
+      // draggable, not needed
     case 1:
       break;
+      // droppable
     case 2:
       let droppables = currentPassage["droppables"];
       if (droppables != null) {
         return droppables;
       }
       break;
+      // linkable
     case 3:
       let linkables = currentPassage["linkables"];
       if (linkables != null) {
@@ -394,6 +421,7 @@ function loadConfig(id) {
         }
       }
       break;
+      // typable
     case 4:
       let typable = currentPassage["typable"];
       if (typable != null) {
@@ -403,6 +431,7 @@ function loadConfig(id) {
   return null;
 }
 
+// update the passage
 function updatePaper() {
   charGrid = new Paper("#111", COLOR_WHITE); // reset paper
   // reset counter
@@ -417,23 +446,25 @@ function updatePaper() {
 
   linkContainer = []; // remove links
 
+  // check if the light is off
   if (STORY["passages"][passageId]["light"] != null && STORY["passages"][passageId]["light"] === false) {
     lightOff = true;
   } else {
     lightOff = false;
   }
-
+  // check if the rotation is on
   if (STORY["passages"][passageId]["rotation"] != null && STORY["passages"][passageId]["rotation"] === true) {
     rotateEnabled = true;
   } else {
     rotateEnabled = false;
   }
 
-  charGrid.addLine(STORY["passages"][passageId]["text"]);
+  charGrid.addLine(STORY["passages"][passageId]["text"]); // add all text
 
   window.scrollTo(0, 0); // reset scroll
 }
 
+// go to the next passage with a given id
 function openHpyerText(id) {
   // if has button id
   if (id < STORY["passages"][passageId]["options"].length) {
